@@ -1,0 +1,135 @@
+services:
+  gateway-service:
+    build:
+      context: ./API-Gateway
+      dockerfile: Dockerfile
+    ports:
+      - "28081:8080"
+    restart: always
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+  auth-service:
+    build:
+      context: ./MicroServices/Auth_Service
+      dockerfile: Dockerfile
+    restart: always
+    container_name: holcim-auth-service
+    environment:
+      ConnectionStrings__DB_SERVER: {DB_SERVER}
+      ConnectionStrings__DB_PORT: {DB_PORT}
+      ConnectionStrings__DB_NAME: {DB_NAME}
+      ConnectionStrings__DB_USER: {DB_USER}
+      ConnectionStrings__DB_PASSWORD: {DB_PASSWORD}
+      ConnectionStrings__DB_CERIFICATE: {DB_CERIFICATE}
+      ASPNETCORE_ENVIRONMENT: {DB_CERIFICATE}
+  documents-service:
+    build:
+      context: ./MicroServices/Documents_Service
+      dockerfile: Dockerfile
+    restart: always
+    container_name: holcim-documents-service
+    environment:
+      ConnectionStrings__DB_SERVER: "20.2.20.11"
+      ConnectionStrings__DB_PORT: "1433"
+      ConnectionStrings__DB_NAME: "HolcimDev" 
+      ConnectionStrings__DB_USER: "sa"
+      ConnectionStrings__DB_PASSWORD: "Nexos.2024"
+      ConnectionStrings__DB_CERIFICATE: "True"
+      Servicios__ApiGatwey: "https://dev-holcim-api.nxs-dev.com.co"
+      ASPNETCORE_ENVIRONMENT: "Development" 
+  task-send-service:
+    build:
+      context: ./MicroServices/TaskSend_Service
+      dockerfile: Dockerfile
+    restart: always
+    container_name: holcim-task-send-service
+    environment:
+      ConnectionStrings__DB_SERVER: {DB_SERVER}
+      ConnectionStrings__DB_PORT: {DB_PORT}
+      ConnectionStrings__DB_NAME: {DB_NAME}
+      ConnectionStrings__DB_USER: {DB_USER}
+      ConnectionStrings__DB_PASSWORD: {DB_PASSWORD}
+      ConnectionStrings__DB_CERIFICATE: {DB_CERIFICATE}
+      ASPNETCORE_ENVIRONMENT: {DB_CERIFICATE}
+  provider-service:
+    build:
+      context: ./MicroServices/Provider_Service
+      dockerfile: Dockerfile
+    restart: always
+    container_name: holcim-provider-service
+    environment:
+      ConnectionStrings__DB_SERVER: {DB_SERVER}
+      ConnectionStrings__DB_PORT: {DB_PORT}
+      ConnectionStrings__DB_NAME: {DB_NAME}
+      ConnectionStrings__DB_USER: {DB_USER}
+      ConnectionStrings__DB_PASSWORD: {DB_PASSWORD}
+      ConnectionStrings__DB_CERIFICATE: {DB_CERIFICATE}
+      ASPNETCORE_ENVIRONMENT: {DB_CERIFICATE}
+  contracts-service:
+    build:
+      context: ./MicroServices/Contracts_Service
+      dockerfile: Dockerfile
+    restart: always
+    container_name: holcim-contracts-service
+    environment:
+    # comentario prueba
+      ConnectionStrings__DB_SERVER: "20.2.20.11"
+      ConnectionStrings__DB_PORT: "1433"
+      ConnectionStrings__DB_NAME: "HolcimDev"
+      ConnectionStrings__DB_USER: "sa"
+      ConnectionStrings__DB_PASSWORD: "Nexos.2024"
+      ConnectionStrings__DB_CERIFICATE: "True"
+      ASPNETCORE_ENVIRONMENT: "Development"
+  auction-service:
+    build:
+      context: ./MicroServices/AuctionService
+      dockerfile: Dockerfile
+    restart: always
+    container_name: holcim-auction-service
+    environment:
+      ConnectionStrings__DB_SERVER: "20.2.20.11"
+      ConnectionStrings__DB_PORT: "1433"
+      ConnectionStrings__DB_NAME: "HolcimDev"
+      ConnectionStrings__DB_USER: "sa"
+      ConnectionStrings__DB_PASSWORD: "Nexos.2024"
+      ConnectionStrings__DB_CERIFICATE: "True"
+      Servicios__ApiGatwey: "https://dev-holcim-api.nxs-dev.com.co"
+      ASPNETCORE_ENVIRONMENT: "Development"
+  translator-service:
+    build:
+      context: ./MicroServices/Trasnlator_Service
+      dockerfile: Dockerfile
+    restart: always
+    container_name: holcim-trasnlator-service
+    environment:
+      ConnectionStrings__DB_SERVER: "20.2.20.11"
+      ConnectionStrings__DB_PORT: "1433"
+      ConnectionStrings__DB_NAME: "HolcimDev"
+      ConnectionStrings__DB_USER: "sa"
+      ConnectionStrings__DB_PASSWORD: "Nexos.2024"
+      ConnectionStrings__DB_CERIFICATE: "True"
+      Servicios__ApiGatwey: "https://dev-holcim-api.nxs-dev.com.co"
+      AWS__awsAccessKeyId: "AKIA2NK3YLNBNHPTKNOD"
+      AWS__awsSecretAccessKey: "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"
+      ASPNETCORE_ENVIRONMENT: "Development"
+  socket-service:
+    build:
+      context: ./MicroServices/Socket_Service
+      dockerfile: Dockerfile
+    restart: always
+    container_name: holcim-socket-service
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      CORS_ORIGIN: "*"
+      DB_USER: sa
+      DB_PASSWORD: Nexos.2024
+      DB_SERVER: 20.2.20.11
+      DB_PORT: 1433
+      URL_BASE: https://dev-holcim-api.nxs-dev.com.co
+      EP_ADD_SUBASTA: /auction/api/Subasta/putAgregarTiempoSubasta
+      EP_ADD_OFFTER : /auction/api/Subasta/PostCreateOffer
+      EP_SUSPE_AUCTION : /auction/api/Subasta/UpdateFechaPausaSubasta
+      EP_ACTIVATE_AUCTION : /auction/api/Subasta/UpdateFechaReanudarSubasta
+      EP_END_AUCTION: /auction/api/Subasta/putActualizarEstadoSubasta 
+      DB_DATABASE: HolcimDev
