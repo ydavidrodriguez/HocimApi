@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="GetTokenJwtService\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.SimpleEmail" Version="3.7.402.1" />
+    <PackageReference Include="AWSSDK.SQS" Version="3.7.400.58" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Holcim.TaskSend.Persistence\Holcim.TaskSend.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>

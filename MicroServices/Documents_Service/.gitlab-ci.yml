@@ -1,0 +1,67 @@
+default:
+  image:
+    name: amazon/aws-cli:2.27.50
+    entrypoint: [""]
+  tags: ["global_corp"]
+
+variables:
+  DOCKER_HOST: tcp://thedockerhost:2375
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: ""
+
+stages:
+  - deploy-dev
+
+publish-to-ecr-dev:
+  stage: deploy-dev
+  rules:
+    - if: $CI_COMMIT_BRANCH == "rfxbranch"
+  variables:
+    ENV: dev
+    AWS_ASSUME_ROLE_ARN: ${DEV_AWS_ASSUME_ROLE_ARN}
+  services:
+    - name: public.ecr.aws/docker/library/docker:dind
+      alias: thedockerhost
+  before_script:
+    - amazon-linux-extras install docker
+    - |
+      export ROLE_SESSION_NAME="${ENV}-$(echo $RANDOM | md5sum | head -c 6; echo;)"
+      echo "-------------- Assuming AWS IAM Role ---------------"
+      export $(printf "AWS_ACCESS_KEY_ID=%s AWS_SECRET_ACCESS_KEY=%s AWS_SESSION_TOKEN=%s" \
+      $(aws sts assume-role \
+        --role-arn ${AWS_ASSUME_ROLE_ARN} \
+        --role-session-name ${ROLE_SESSION_NAME} \
+        --query "Credentials.[AccessKeyId,SecretAccessKey,SessionToken]" \
+        --output text))
+      echo "----------------------------------------------------"
+  script:
+    - cd MicroServices/Documents_Service
+    - docker build -t $DEV_ECR_REGISTRY/$ECR_REPOSITORY_DOCUMENTS:latest .
+    - aws ecr get-login-password | docker login --username AWS --password-stdin $DEV_ECR_REGISTRY
+    - docker push $DEV_ECR_REGISTRY/$ECR_REPOSITORY_DOCUMENTS:latest
+
+
+deploy-to-ecs-dev:
+  stage: deploy-dev
+  rules:
+    - if: $CI_COMMIT_BRANCH == "rfxbranch"
+  variables:
+    ENV: dev
+    AWS_ASSUME_ROLE_ARN: ${DEV_AWS_ASSUME_ROLE_ARN}
+  environment:
+    name: dev-esourcing
+  needs:
+    - publish-to-ecr-dev
+  before_script:
+    - |
+      export ROLE_SESSION_NAME="${ENV}-$(echo $RANDOM | md5sum | head -c 6; echo;)"
+      echo "-------------- Assuming AWS IAM Role ---------------"
+      export $(printf "AWS_ACCESS_KEY_ID=%s AWS_SECRET_ACCESS_KEY=%s AWS_SESSION_TOKEN=%s" \
+      $(aws sts assume-role \
+        --role-arn ${AWS_ASSUME_ROLE_ARN} \
+        --role-session-name ${ROLE_SESSION_NAME} \
+        --query "Credentials.[AccessKeyId,SecretAccessKey,SessionToken]" \
+        --output text))
+      echo "----------------------------------------------------"
+  script:
+    - aws ecs update-service --cluster $AWS_ECS_CLUSTER --service $AWS_ECS_DOCUMENTS_SERVICE --force-new-deployment

@@ -1,0 +1,6 @@
+@Holcim.DocumetsService.Api_HostAddress = http://localhost:5288
+
+GET {{Holcim.DocumetsService.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

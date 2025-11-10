@@ -1,0 +1,1 @@
+/Users/camoreno/Documents/TauroProjects/Nexos/Eventos/EventosServicios.Back.App/API-GatewayVotacionAccionaria/API-Gateway/.sonarqube/out/0

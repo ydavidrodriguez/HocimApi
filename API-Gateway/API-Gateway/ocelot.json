@@ -1,0 +1,236 @@
+  {
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "holcim-auth-service",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/auth/{everything}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete"
+      ],
+      "SwaggerKey": "holcim-auth-service"
+    },
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "holcim-task-send-service",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/task/{everything}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete"
+      ],
+      "SwaggerKey": "holcim-task-send-service"
+    },
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "holcim-provider-service", 
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/provider/{everything}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete"
+      ],
+      "SwaggerKey": "holcim-provider-service"
+    },
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "holcim-documents-service",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/documents/{everything}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete"
+      ],
+      "SwaggerKey": "holcim-documents-service"
+    },
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "holcim-auction-service",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/auction/{everything}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete"
+      ],
+      "SwaggerKey": "holcim-auction-service"
+    },
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "ws",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "holcim-socket-service",
+          "Port": 3000
+        }
+      ],
+      "UpstreamPathTemplate": "/auction-socket/{everything}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "holcim-socket-service",
+          "Port": 3000
+        }
+      ],
+      "UpstreamPathTemplate": "/auction-real-time/{everything}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "holcim-contracts-service",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/contracts/{everything}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete"
+      ],
+      "SwaggerKey": "holcim-contracts-service"
+    },
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "holcim-trasnlator-service",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/trasnlator/{everything}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete"
+      ],
+      "SwaggerKey": "holcim-trasnlator-service"
+    }
+  ],
+  "SwaggerEndPoints": [
+    {
+      "Key": "holcim-auth-service",
+      "Config": [
+        {
+          "Name": "Auth Micro Service",
+          "Version": "v1",
+          "Url": "http://holcim-auth-service:8080/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "holcim-task-send-service",
+      "Config": [
+        {
+          "Name": "TaskSend Micro Service",
+          "Version": "v1",
+          "Url": "http://holcim-task-send-service:8080/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "holcim-provider-service",
+      "Config": [
+        {
+          "Name": "provider Micro Service",
+          "Version": "v1",
+          "Url": "http://holcim-provider-service:8080/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "holcim-documents-service",
+      "Config": [
+        {
+          "Name": "documents Micro Service",
+          "Version": "v1",
+          "Url": "http://holcim-documents-service:8080/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "holcim-contracts-service",
+      "Config": [
+        {
+          "Name": "contracts Micro Service",
+          "Version": "v1",
+          "Url": "http://holcim-contracts-service:8080/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "holcim-auction-service",
+      "Config": [
+        {
+          "Name": "auction Micro Service",
+          "Version": "v1",
+          "Url": "http://holcim-auction-service:8080/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "holcim-trasnlator-service",
+      "Config": [
+        {
+          "Name": "trasnlator Micro Service",
+          "Version": "v1",
+          "Url": "http://holcim-trasnlator-service:8080/swagger/v1/swagger.json"
+        }
+      ]
+    }
+  ]
+}

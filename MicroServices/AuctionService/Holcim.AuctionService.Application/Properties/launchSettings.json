@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Holcim.AuctionService.Application": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

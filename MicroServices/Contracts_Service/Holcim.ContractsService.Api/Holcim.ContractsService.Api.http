@@ -1,0 +1,6 @@
+@Holcim.ContractsService.Api_HostAddress = http://localhost:5257
+
+GET {{Holcim.ContractsService.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

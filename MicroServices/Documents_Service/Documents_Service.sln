@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{CB4FA810-80DA-4086-9AFB-2B335E7D9B56}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{E96C0757-7443-423D-B8C6-2991C8FE8FFE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{0EDAD36F-2B8E-4436-BE97-519CA9EE3BEB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infraestructure", "Infraestructure", "{F1C2DE57-8943-4E8A-851E-6A657BFBD54A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Holcim.DocumetsService.Api", "Holcim.DocumetsService.Api\Holcim.DocumetsService.Api.csproj", "{F8AA43BD-3D75-4B18-82CA-D88CA85DBA3F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Holcim.DocumetsService.Application", "Holcim.DocumetsService.Application\Holcim.DocumetsService.Application.csproj", "{C4361CB0-3F31-4EC4-8EFF-A1B255E0C61D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Holcim.DocumetsService.Domain", "Holcim.DocumetsService.Domain\Holcim.DocumetsService.Domain.csproj", "{BD96D760-E087-43D7-BFBF-EE089390261F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Holcim.DocumetsService.External", "Holcim.DocumetsService.External\Holcim.DocumetsService.External.csproj", "{CA02D82C-4105-4BB0-85BB-B142010A7208}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Holcim.DocumetsService.Persistence", "Holcim.DocumetsService.Persistence\Holcim.DocumetsService.Persistence.csproj", "{AF6E6DE2-3143-433D-AF68-2AC4F6FA106D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F8AA43BD-3D75-4B18-82CA-D88CA85DBA3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8AA43BD-3D75-4B18-82CA-D88CA85DBA3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8AA43BD-3D75-4B18-82CA-D88CA85DBA3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8AA43BD-3D75-4B18-82CA-D88CA85DBA3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4361CB0-3F31-4EC4-8EFF-A1B255E0C61D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4361CB0-3F31-4EC4-8EFF-A1B255E0C61D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4361CB0-3F31-4EC4-8EFF-A1B255E0C61D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4361CB0-3F31-4EC4-8EFF-A1B255E0C61D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD96D760-E087-43D7-BFBF-EE089390261F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD96D760-E087-43D7-BFBF-EE089390261F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD96D760-E087-43D7-BFBF-EE089390261F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD96D760-E087-43D7-BFBF-EE089390261F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA02D82C-4105-4BB0-85BB-B142010A7208}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA02D82C-4105-4BB0-85BB-B142010A7208}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA02D82C-4105-4BB0-85BB-B142010A7208}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA02D82C-4105-4BB0-85BB-B142010A7208}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF6E6DE2-3143-433D-AF68-2AC4F6FA106D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF6E6DE2-3143-433D-AF68-2AC4F6FA106D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF6E6DE2-3143-433D-AF68-2AC4F6FA106D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF6E6DE2-3143-433D-AF68-2AC4F6FA106D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F8AA43BD-3D75-4B18-82CA-D88CA85DBA3F} = {CB4FA810-80DA-4086-9AFB-2B335E7D9B56}
+		{C4361CB0-3F31-4EC4-8EFF-A1B255E0C61D} = {0EDAD36F-2B8E-4436-BE97-519CA9EE3BEB}
+		{BD96D760-E087-43D7-BFBF-EE089390261F} = {0EDAD36F-2B8E-4436-BE97-519CA9EE3BEB}
+		{CA02D82C-4105-4BB0-85BB-B142010A7208} = {F1C2DE57-8943-4E8A-851E-6A657BFBD54A}
+		{AF6E6DE2-3143-433D-AF68-2AC4F6FA106D} = {F1C2DE57-8943-4E8A-851E-6A657BFBD54A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5086A648-14E0-4243-879A-0815DC256882}
+	EndGlobalSection
+EndGlobal

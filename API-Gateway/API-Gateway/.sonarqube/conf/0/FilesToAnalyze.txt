@@ -1,0 +1,10 @@
+﻿/Users/camoreno/Documents/TauroProjects/Nexos/Eventos/EventosServicios.Back.App/API-GatewayVotacionAccionaria/API-Gateway/Program.cs
+/Users/camoreno/Documents/TauroProjects/Nexos/Eventos/EventosServicios.Back.App/API-GatewayVotacionAccionaria/API-Gateway/obj/Debug/net8.0/API-Gateway.GlobalUsings.g.cs
+/Users/camoreno/Documents/TauroProjects/Nexos/Eventos/EventosServicios.Back.App/API-GatewayVotacionAccionaria/API-Gateway/obj/Debug/net8.0/.NETCoreApp,Version=v8.0.AssemblyAttributes.cs
+/Users/camoreno/Documents/TauroProjects/Nexos/Eventos/EventosServicios.Back.App/API-GatewayVotacionAccionaria/API-Gateway/obj/Debug/net8.0/API-Gateway.AssemblyInfo.cs
+/Users/camoreno/Documents/TauroProjects/Nexos/Eventos/EventosServicios.Back.App/API-GatewayVotacionAccionaria/API-Gateway/obj/Debug/net8.0/API-Gateway.MvcApplicationPartsAssemblyInfo.cs
+/Users/camoreno/Documents/TauroProjects/Nexos/Eventos/EventosServicios.Back.App/API-GatewayVotacionAccionaria/API-Gateway/appsettings.Development.json
+/Users/camoreno/Documents/TauroProjects/Nexos/Eventos/EventosServicios.Back.App/API-GatewayVotacionAccionaria/API-Gateway/appsettings.json
+/Users/camoreno/Documents/TauroProjects/Nexos/Eventos/EventosServicios.Back.App/API-GatewayVotacionAccionaria/API-Gateway/ocelot.json
+/Users/camoreno/Documents/TauroProjects/Nexos/Eventos/EventosServicios.Back.App/API-GatewayVotacionAccionaria/API-Gateway/API-Gateway.http
+/Users/camoreno/Documents/TauroProjects/Nexos/Eventos/EventosServicios.Back.App/API-GatewayVotacionAccionaria/API-Gateway/Properties/launchSettings.json

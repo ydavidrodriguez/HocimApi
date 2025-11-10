@@ -1,0 +1,10 @@
+{
+    "nameTables": {
+        "commits": "tbl_nexhub_commits",
+        "commits_deployed": "tbl_nexhub_commits_deployed",
+        "machines": "tbl_nexhub_machines_ips",
+        "repositories": "tbl_nexhub_repositories",
+        "branches": "tbl_nexhub_branches"
+    },
+    "basePath": "/"
+}

@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{A92BF7C8-6D2A-4377-A388-A209C7C1FAE3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{E0C68A9F-591E-47C4-A59D-ECA6ADD1F7B4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{E89E4339-7E7B-4AEE-8D87-CC0F6F5489D3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infraestructure", "Infraestructure", "{8370199F-FE14-49FD-A7B7-1C7B0E56C4E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Holcim.Translate.Application", "Holcim.Translate.Application\Holcim.Translate.Application.csproj", "{7D731B98-FD4D-4027-9201-CEA83447B5AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Holcim.Translate.Domain", "Holcim.Translate.Domain\Holcim.Translate.Domain.csproj", "{C67FE46F-5AE9-4E92-A556-0FD7CB4DBEC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Holcim.Translate.External", "Holcim.Translate.External\Holcim.Translate.External.csproj", "{B13C233E-050F-4AEC-AAF7-34072E4EB2C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Holcim.Translate.Persistence", "Holcim.Translate.Persistence\Holcim.Translate.Persistence.csproj", "{311A41C5-8249-463F-99C9-9E1B0708904D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Holcim.Translate.Api", "Holcim.Translate.Api\Holcim.Translate.Api.csproj", "{71F7A2D1-A274-448B-A5AD-D424E6C6214D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7D731B98-FD4D-4027-9201-CEA83447B5AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D731B98-FD4D-4027-9201-CEA83447B5AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D731B98-FD4D-4027-9201-CEA83447B5AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D731B98-FD4D-4027-9201-CEA83447B5AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C67FE46F-5AE9-4E92-A556-0FD7CB4DBEC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C67FE46F-5AE9-4E92-A556-0FD7CB4DBEC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C67FE46F-5AE9-4E92-A556-0FD7CB4DBEC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C67FE46F-5AE9-4E92-A556-0FD7CB4DBEC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B13C233E-050F-4AEC-AAF7-34072E4EB2C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B13C233E-050F-4AEC-AAF7-34072E4EB2C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B13C233E-050F-4AEC-AAF7-34072E4EB2C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B13C233E-050F-4AEC-AAF7-34072E4EB2C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{311A41C5-8249-463F-99C9-9E1B0708904D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{311A41C5-8249-463F-99C9-9E1B0708904D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{311A41C5-8249-463F-99C9-9E1B0708904D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{311A41C5-8249-463F-99C9-9E1B0708904D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71F7A2D1-A274-448B-A5AD-D424E6C6214D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71F7A2D1-A274-448B-A5AD-D424E6C6214D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71F7A2D1-A274-448B-A5AD-D424E6C6214D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71F7A2D1-A274-448B-A5AD-D424E6C6214D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7D731B98-FD4D-4027-9201-CEA83447B5AC} = {E89E4339-7E7B-4AEE-8D87-CC0F6F5489D3}
+		{C67FE46F-5AE9-4E92-A556-0FD7CB4DBEC9} = {E89E4339-7E7B-4AEE-8D87-CC0F6F5489D3}
+		{B13C233E-050F-4AEC-AAF7-34072E4EB2C4} = {8370199F-FE14-49FD-A7B7-1C7B0E56C4E5}
+		{311A41C5-8249-463F-99C9-9E1B0708904D} = {8370199F-FE14-49FD-A7B7-1C7B0E56C4E5}
+		{71F7A2D1-A274-448B-A5AD-D424E6C6214D} = {A92BF7C8-6D2A-4377-A388-A209C7C1FAE3}
+	EndGlobalSection
+EndGlobal
