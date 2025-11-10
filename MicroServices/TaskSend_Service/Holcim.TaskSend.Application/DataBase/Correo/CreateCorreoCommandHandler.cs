@@ -1,20 +1,17 @@
-﻿using Amazon.SQS.Model;
-using Amazon.SQS;
-using AutoMapper;
+﻿using AutoMapper;
 using Holcim.TaskSend.Application.Feature;
 using Holcim.TaskSend.Domian.Models.Email;
 using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-using Amazon;
+using Microsoft.Extensions.Configuration;
 
 namespace Holcim.TaskSend.Application.DataBase.Correo
 {
-    public class CreateCorreoCommandHandler: ICreateCorreoCommandHandler
+    public class CreateCorreoCommandHandler : ICreateCorreoCommandHandler
     {
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
 
-        public CreateCorreoCommandHandler( IMapper mapper, IConfiguration configuration)
+        public CreateCorreoCommandHandler(IMapper mapper, IConfiguration configuration)
         {
             _mapper = mapper;
             _configuration = configuration;
@@ -22,7 +19,7 @@ namespace Holcim.TaskSend.Application.DataBase.Correo
         public async Task<object> Execute(CreateEmailRequest createEmailRequest)
         {
 
-           
+
             // // Define the SQS queue URL
             // string queueUrl = _configuration["awsurl"];
             // string mensajejson = JsonConvert.SerializeObject(createEmailRequest);
@@ -37,7 +34,7 @@ namespace Holcim.TaskSend.Application.DataBase.Correo
             // // Send the message
             // var sendMessageResponse = await sqsClient.SendMessageAsync(sendMessageRequest);
             // Console.WriteLine($"Message sent! Message ID: {sendMessageResponse.MessageId}");
-            // return ResponseApiService.Response(StatusCodes.Status201Created, createEmailRequest);
+            return ResponseApiService.Response(StatusCodes.Status201Created, createEmailRequest);
         }
 
     }

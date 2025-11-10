@@ -1,10 +1,6 @@
-﻿using Amazon;
-using Amazon.SQS;
-using Amazon.SQS.Model;
-using Holcim.TaskSend.Application.External.Smtp;
-using Holcim.TaskSend.Domian.Models.Email;
+﻿using Holcim.TaskSend.Application.External.Smtp;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json;
 
 namespace Holcim.TaskSend.Application.DataBase.Email.Commands.SendEmail
 {
@@ -12,9 +8,9 @@ namespace Holcim.TaskSend.Application.DataBase.Email.Commands.SendEmail
     {
 
         private readonly ISmtpCommandHandler _smtpCommandHandler;
-         private readonly IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
 
-        public SendEmailCommandHandler(ISmtpCommandHandler smtpCommandHandler,IConfiguration configuration)
+        public SendEmailCommandHandler(ISmtpCommandHandler smtpCommandHandler, IConfiguration configuration)
         {
             _smtpCommandHandler = smtpCommandHandler;
             _configuration = configuration;
@@ -34,7 +30,7 @@ namespace Holcim.TaskSend.Application.DataBase.Email.Commands.SendEmail
                     // // Tu lógica aquí
                     // Console.WriteLine($"Tarea ejecutada a las {DateTime.Now}");
 
-                    
+
 
                     // // Definir la URL de la cola SQS
                     // string queueUrl = _configuration["awsurl"];
@@ -71,7 +67,7 @@ namespace Holcim.TaskSend.Application.DataBase.Email.Commands.SendEmail
                     //         await sqsClient.DeleteMessageAsync(deleteMessageRequest);
 
                     //     }
-                    
+
                     // }
                     // else
                     // {
@@ -91,7 +87,7 @@ namespace Holcim.TaskSend.Application.DataBase.Email.Commands.SendEmail
                 Console.WriteLine("Error Tarea en segundo plano" + ex.Message.ToString());
             }
 
-            
+
 
         }
 
