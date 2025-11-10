@@ -15,13 +15,13 @@ services:
     restart: always
     container_name: holcim-auth-service
     environment:
-      ConnectionStrings__DB_SERVER: {DB_SERVER}
-      ConnectionStrings__DB_PORT: {DB_PORT}
-      ConnectionStrings__DB_NAME: {DB_NAME}
-      ConnectionStrings__DB_USER: {DB_USER}
-      ConnectionStrings__DB_PASSWORD: {DB_PASSWORD}
-      ConnectionStrings__DB_CERIFICATE: {DB_CERIFICATE}
-      ASPNETCORE_ENVIRONMENT: {DB_CERIFICATE}
+      ConnectionStrings__DB_SERVER: "holcim1.database.windows.net"
+      ConnectionStrings__DB_PORT: "1433"
+      ConnectionStrings__DB_NAME: "ng-holcim-qa"
+      ConnectionStrings__DB_USER: "holcim"
+      ConnectionStrings__DB_PASSWORD: "Borealys."
+      ConnectionStrings__DB_CERIFICATE: "True"
+      ASPNETCORE_ENVIRONMENT: "Development"
   documents-service:
     build:
       context: ./MicroServices/Documents_Service
@@ -29,14 +29,14 @@ services:
     restart: always
     container_name: holcim-documents-service
     environment:
-      ConnectionStrings__DB_SERVER: "20.2.20.11"
+      ConnectionStrings__DB_SERVER: "holcim1.database.windows.net"
       ConnectionStrings__DB_PORT: "1433"
-      ConnectionStrings__DB_NAME: "HolcimDev" 
-      ConnectionStrings__DB_USER: "sa"
-      ConnectionStrings__DB_PASSWORD: "Nexos.2024"
+      ConnectionStrings__DB_NAME: "ng-holcim-qa"
+      ConnectionStrings__DB_USER: "holcim"
+      ConnectionStrings__DB_PASSWORD: "Borealys."
       ConnectionStrings__DB_CERIFICATE: "True"
+      ASPNETCORE_ENVIRONMENT: "Development"
       Servicios__ApiGatwey: "https://dev-holcim-api.nxs-dev.com.co"
-      ASPNETCORE_ENVIRONMENT: "Development" 
   task-send-service:
     build:
       context: ./MicroServices/TaskSend_Service
@@ -44,13 +44,13 @@ services:
     restart: always
     container_name: holcim-task-send-service
     environment:
-      ConnectionStrings__DB_SERVER: {DB_SERVER}
-      ConnectionStrings__DB_PORT: {DB_PORT}
-      ConnectionStrings__DB_NAME: {DB_NAME}
-      ConnectionStrings__DB_USER: {DB_USER}
-      ConnectionStrings__DB_PASSWORD: {DB_PASSWORD}
-      ConnectionStrings__DB_CERIFICATE: {DB_CERIFICATE}
-      ASPNETCORE_ENVIRONMENT: {DB_CERIFICATE}
+      ConnectionStrings__DB_SERVER: "holcim1.database.windows.net"
+      ConnectionStrings__DB_PORT: "1433"
+      ConnectionStrings__DB_NAME: "ng-holcim-qa"
+      ConnectionStrings__DB_USER: "holcim"
+      ConnectionStrings__DB_PASSWORD: "Borealys."
+      ConnectionStrings__DB_CERIFICATE: "True"
+      ASPNETCORE_ENVIRONMENT: "Development"
   provider-service:
     build:
       context: ./MicroServices/Provider_Service
@@ -58,13 +58,13 @@ services:
     restart: always
     container_name: holcim-provider-service
     environment:
-      ConnectionStrings__DB_SERVER: {DB_SERVER}
-      ConnectionStrings__DB_PORT: {DB_PORT}
-      ConnectionStrings__DB_NAME: {DB_NAME}
-      ConnectionStrings__DB_USER: {DB_USER}
-      ConnectionStrings__DB_PASSWORD: {DB_PASSWORD}
-      ConnectionStrings__DB_CERIFICATE: {DB_CERIFICATE}
-      ASPNETCORE_ENVIRONMENT: {DB_CERIFICATE}
+      ConnectionStrings__DB_SERVER: "holcim1.database.windows.net"
+      ConnectionStrings__DB_PORT: "1433"
+      ConnectionStrings__DB_NAME: "ng-holcim-qa"
+      ConnectionStrings__DB_USER: "holcim"
+      ConnectionStrings__DB_PASSWORD: "Borealys."
+      ConnectionStrings__DB_CERIFICATE: "True"
+      ASPNETCORE_ENVIRONMENT: "Development"
   contracts-service:
     build:
       context: ./MicroServices/Contracts_Service
@@ -73,11 +73,11 @@ services:
     container_name: holcim-contracts-service
     environment:
     # comentario prueba
-      ConnectionStrings__DB_SERVER: "20.2.20.11"
+      ConnectionStrings__DB_SERVER: "holcim1.database.windows.net"
       ConnectionStrings__DB_PORT: "1433"
-      ConnectionStrings__DB_NAME: "HolcimDev"
-      ConnectionStrings__DB_USER: "sa"
-      ConnectionStrings__DB_PASSWORD: "Nexos.2024"
+      ConnectionStrings__DB_NAME: "ng-holcim-qa"
+      ConnectionStrings__DB_USER: "holcim"
+      ConnectionStrings__DB_PASSWORD: "Borealys."
       ConnectionStrings__DB_CERIFICATE: "True"
       ASPNETCORE_ENVIRONMENT: "Development"
   auction-service:
@@ -87,14 +87,14 @@ services:
     restart: always
     container_name: holcim-auction-service
     environment:
-      ConnectionStrings__DB_SERVER: "20.2.20.11"
+      ConnectionStrings__DB_SERVER: "holcim1.database.windows.net"
       ConnectionStrings__DB_PORT: "1433"
-      ConnectionStrings__DB_NAME: "HolcimDev"
-      ConnectionStrings__DB_USER: "sa"
-      ConnectionStrings__DB_PASSWORD: "Nexos.2024"
+      ConnectionStrings__DB_NAME: "ng-holcim-qa"
+      ConnectionStrings__DB_USER: "holcim"
+      ConnectionStrings__DB_PASSWORD: "Borealys."
       ConnectionStrings__DB_CERIFICATE: "True"
-      Servicios__ApiGatwey: "https://dev-holcim-api.nxs-dev.com.co"
       ASPNETCORE_ENVIRONMENT: "Development"
+      Servicios__ApiGatwey: "https://dev-holcim-api.nxs-dev.com.co"
   translator-service:
     build:
       context: ./MicroServices/Trasnlator_Service
@@ -102,16 +102,16 @@ services:
     restart: always
     container_name: holcim-trasnlator-service
     environment:
-      ConnectionStrings__DB_SERVER: "20.2.20.11"
+      ConnectionStrings__DB_SERVER: "holcim1.database.windows.net"
       ConnectionStrings__DB_PORT: "1433"
-      ConnectionStrings__DB_NAME: "HolcimDev"
-      ConnectionStrings__DB_USER: "sa"
-      ConnectionStrings__DB_PASSWORD: "Nexos.2024"
+      ConnectionStrings__DB_NAME: "ng-holcim-qa"
+      ConnectionStrings__DB_USER: "holcim"
+      ConnectionStrings__DB_PASSWORD: "Borealys."
       ConnectionStrings__DB_CERIFICATE: "True"
+      ASPNETCORE_ENVIRONMENT: "Development"
       Servicios__ApiGatwey: "https://dev-holcim-api.nxs-dev.com.co"
       AWS__awsAccessKeyId: "AKIA2NK3YLNBNHPTKNOD"
       AWS__awsSecretAccessKey: "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"
-      ASPNETCORE_ENVIRONMENT: "Development"
   socket-service:
     build:
       context: ./MicroServices/Socket_Service
@@ -122,9 +122,9 @@ services:
       NODE_ENV: development
       PORT: 3000
       CORS_ORIGIN: "*"
-      DB_USER: sa
-      DB_PASSWORD: Nexos.2024
-      DB_SERVER: 20.2.20.11
+      DB_USER: holcim
+      DB_PASSWORD: Borealys.
+      DB_SERVER: holcim1.database.windows.net
       DB_PORT: 1433
       URL_BASE: https://dev-holcim-api.nxs-dev.com.co
       EP_ADD_SUBASTA: /auction/api/Subasta/putAgregarTiempoSubasta
