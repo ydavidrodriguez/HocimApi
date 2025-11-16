@@ -53,6 +53,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseRouting();
+
 app.UseCors("NuevaPolitica");
 
 app.UseAuthorization();
