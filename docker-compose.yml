@@ -27,6 +27,7 @@ services:
       ConnectionStrings__DB_CERIFICATE: "True"
       ASPNETCORE_HTTP_PORTS: "8080"
       ASPNETCORE_ENVIRONMENT: "Development"
+      ASPNETCORE_URLS: "http://0.0.0.0:8080"
     networks:
       - holcim-net
   documents-service:
@@ -45,6 +46,7 @@ services:
       ASPNETCORE_HTTP_PORTS: "8080"
       ASPNETCORE_ENVIRONMENT: "Development"
       Servicios__ApiGatwey: "https://dev-holcim-api.nxs-dev.com.co"
+      ASPNETCORE_URLS: "http://0.0.0.0:8080"
     networks:
       - holcim-net
   task-send-service:
@@ -62,6 +64,7 @@ services:
       ConnectionStrings__DB_CERIFICATE: "True"
       ASPNETCORE_HTTP_PORTS: "8080"
       ASPNETCORE_ENVIRONMENT: "Development"
+      ASPNETCORE_URLS: "http://0.0.0.0:8080"
     networks:
       - holcim-net
   provider-service:
@@ -79,6 +82,7 @@ services:
       ConnectionStrings__DB_CERIFICATE: "True"
       ASPNETCORE_HTTP_PORTS: "8080"
       ASPNETCORE_ENVIRONMENT: "Development"
+      ASPNETCORE_URLS: "http://0.0.0.0:8080"
     networks:
       - holcim-net
   contracts-service:
@@ -97,6 +101,7 @@ services:
       ConnectionStrings__DB_CERIFICATE: "True"
       ASPNETCORE_HTTP_PORTS: "8080"
       ASPNETCORE_ENVIRONMENT: "Development"
+      ASPNETCORE_URLS: "http://0.0.0.0:8080"
     networks:
       - holcim-net
   auction-service:
@@ -115,6 +120,7 @@ services:
       ASPNETCORE_HTTP_PORTS: "8080"
       ASPNETCORE_ENVIRONMENT: "Development"
       Servicios__ApiGatwey: "https://dev-holcim-api.nxs-dev.com.co"
+      ASPNETCORE_URLS: "http://0.0.0.0:8080"
     networks:
       - holcim-net
   translator-service:
@@ -135,6 +141,7 @@ services:
       Servicios__ApiGatwey: "https://dev-holcim-api.nxs-dev.com.co"
       AWS__awsAccessKeyId: "AKIA2NK3YLNBNHPTKNOD"
       AWS__awsSecretAccessKey: "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"
+      ASPNETCORE_URLS: "http://0.0.0.0:8080"
     networks:
       - holcim-net
   socket-service:
@@ -158,5 +165,6 @@ services:
       EP_ACTIVATE_AUCTION : /auction/api/Subasta/UpdateFechaReanudarSubasta
       EP_END_AUCTION: /auction/api/Subasta/putActualizarEstadoSubasta 
       DB_DATABASE: HolcimDev
+      ASPNETCORE_URLS: "http://0.0.0.0:8080"
     networks:
       - holcim-net
