@@ -24,7 +24,7 @@ namespace Holcim.External
             string password = configuration["ConnectionStrings:DB_PASSWORD"];
             string Certificate = configuration["ConnectionStrings:DB_CERIFICATE"];
 
-            string connectionString = $"Server={server},{port};Database={database};Uid={user};Password={password};Trusted_Connection=false;MultipleActiveResultSets=true;TrustServerCertificate={Certificate}";
+            string connectionString = $"Server={server},{port};Database={database};Uid={user};Password={password};Encrypt=True;MultipleActiveResultSets=true;TrustServerCertificate={Certificate}";
 
             //string connectionString = $"Server={server},1443;Database={database};Uid={user};Password={password};TrustServerCertificate={Certificate};Encrypt=True"; 
 
