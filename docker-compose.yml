@@ -3,14 +3,12 @@ version: "3.9"
 networks:
   holcim-net:
     driver: bridge
-    
+
 services:
   gateway-service:
     build:
       context: ./API-Gateway
       dockerfile: Dockerfile
-    ports:
-      - "28081:8080"
     restart: always
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
@@ -19,8 +17,6 @@ services:
       context: ./MicroServices/Auth_Service
       dockerfile: Dockerfile
     restart: always
-    ports:
-      - "5001:8080"
     container_name: holcim-auth-service
     environment:
       ConnectionStrings__DB_SERVER: "holcim1.database.windows.net"
@@ -39,8 +35,6 @@ services:
       dockerfile: Dockerfile
     restart: always
     container_name: holcim-documents-service
-    ports:
-      - "5002:8080"
     environment:
       ConnectionStrings__DB_SERVER: "holcim1.database.windows.net"
       ConnectionStrings__DB_PORT: "1433"
@@ -59,8 +53,6 @@ services:
       dockerfile: Dockerfile
     restart: always
     container_name: holcim-task-send-service
-    ports:
-      - "5003:8080"
     environment:
       ConnectionStrings__DB_SERVER: "holcim1.database.windows.net"
       ConnectionStrings__DB_PORT: "1433"
@@ -78,8 +70,6 @@ services:
       dockerfile: Dockerfile
     restart: always
     container_name: holcim-provider-service
-    ports:
-     - "5004:8080"
     environment:
       ConnectionStrings__DB_SERVER: "holcim1.database.windows.net"
       ConnectionStrings__DB_PORT: "1433"
@@ -97,8 +87,6 @@ services:
       dockerfile: Dockerfile
     restart: always
     container_name: holcim-contracts-service
-    ports:
-     - "5005:8080"
     environment:
     # comentario prueba
       ConnectionStrings__DB_SERVER: "holcim1.database.windows.net"
@@ -117,8 +105,6 @@ services:
       dockerfile: Dockerfile
     restart: always
     container_name: holcim-auction-service
-    ports:
-     - "5006:8080"
     environment:
       ConnectionStrings__DB_SERVER: "holcim1.database.windows.net"
       ConnectionStrings__DB_PORT: "1433"
@@ -137,8 +123,6 @@ services:
       dockerfile: Dockerfile
     restart: always
     container_name: holcim-trasnlator-service
-    ports:
-     - "5007:8080"
     environment:
       ConnectionStrings__DB_SERVER: "holcim1.database.windows.net"
       ConnectionStrings__DB_PORT: "1433"
@@ -159,8 +143,6 @@ services:
       dockerfile: Dockerfile
     restart: always
     container_name: holcim-socket-service
-    ports:
-     - "5008:8080"
     environment:
       NODE_ENV: development
       PORT: 3000
