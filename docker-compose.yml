@@ -144,4 +144,17 @@ services:
       EP_ACTIVATE_AUCTION : /auction/api/Subasta/UpdateFechaReanudarSubasta
       EP_END_AUCTION: /auction/api/Subasta/putActualizarEstadoSubasta 
       DB_DATABASE: HolcimDev
+  nginx:
+    image: nginx:latest
+    container_name: holcim-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./certs:/etc/nginx/certs
+    depends_on:
+      - gateway-service
+    restart: always
+   
 
