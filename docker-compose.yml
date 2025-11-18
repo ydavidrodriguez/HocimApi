@@ -1,3 +1,9 @@
+version: "3.9"
+
+networks:
+  holcim-net:
+    driver: bridge
+    
 services:
   gateway-service:
     build:
