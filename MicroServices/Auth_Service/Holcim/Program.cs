@@ -20,7 +20,7 @@ builder.Services
 
 builder.Services.AddControllers(options =>
 {
-    options.Filters.Add<EnforceFromQueryAttribute>();
+    //options.Filters.Add<EnforceFromQueryAttribute>();
 } );
 builder.Services.AddCors(options =>
 
