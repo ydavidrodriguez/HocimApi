@@ -11,7 +11,7 @@ namespace Holcim.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     [TypeFilter(typeof(ExceptionManager))]
     public class UnidadMedidaController : ControllerBase
     {
