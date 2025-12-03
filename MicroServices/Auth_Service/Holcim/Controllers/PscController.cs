@@ -14,7 +14,6 @@ namespace Holcim.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     [TypeFilter(typeof(ExceptionManager))]
     public class PscController : ControllerBase
     {

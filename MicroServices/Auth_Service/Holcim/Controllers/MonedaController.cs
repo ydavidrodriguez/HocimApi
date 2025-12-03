@@ -3,14 +3,13 @@ using Holcim.Application.DataBase.Moneda.Commands.List;
 using Holcim.Application.DataBase.Moneda.Commands.Update;
 using Holcim.Application.Exception;
 using Holcim.Domain.Models.Moneda;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Holcim.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     [TypeFilter(typeof(ExceptionManager))]
     public class MonedaController : ControllerBase
     {
