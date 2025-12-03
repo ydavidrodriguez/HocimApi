@@ -28,7 +28,7 @@ namespace Holcim.Application.DataBase.Pais.Commands.List
                 .Select(p => new Domain.Entities.Pais.Pais
                 {
                     IdPais = p.IdPais,
-                    Nombre = _getTraduccionService.GetTranslatedName(p.Nombre, leng),
+                    Nombre = p.Nombre,
                     Estado = p.Estado,
                     FechaActulizacion = p.FechaActulizacion,
                     FechaCreacion = p.FechaCreacion,
