@@ -4,10 +4,8 @@ using Holcim.Application.DataBase.Psc.Commands.GetById;
 using Holcim.Application.DataBase.Psc.Commands.List;
 using Holcim.Application.DataBase.Psc.Commands.Update;
 using Holcim.Application.DataBase.Psc.Grupo.List;
-using Holcim.Application.DataBase.UnidadMedida.Commands.GetById;
 using Holcim.Application.Exception;
 using Holcim.Domain.Models.Psc;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Holcim.Controllers
@@ -19,7 +17,7 @@ namespace Holcim.Controllers
     {
         [HttpGet("GetListPscAll")]
         public async Task<IActionResult> GetListPscAll(
-        [FromServices] IGetListPscCommandHandler GetListPscCommandHandler, [FromQuery]string? Codigo)
+        [FromServices] IGetListPscCommandHandler GetListPscCommandHandler, [FromQuery] string? Codigo)
         {
             return Ok(await GetListPscCommandHandler.Execute(Codigo));
 

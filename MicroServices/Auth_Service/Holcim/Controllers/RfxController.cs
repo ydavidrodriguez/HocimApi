@@ -13,7 +13,7 @@ namespace Holcim.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    // [Authorize]
+    [TypeFilter(typeof(ExceptionManager))]
     [TypeFilter(typeof(ExceptionManager))]
     public class RfxController : ControllerBase
     {
