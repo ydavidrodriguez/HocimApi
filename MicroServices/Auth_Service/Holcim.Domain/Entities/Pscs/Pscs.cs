@@ -5,9 +5,9 @@
         public Guid IdPscs { get; set; }
         public string PscsId { get; set; } = string.Empty;
         public string PscsNombre { get; set; } = string.Empty;
-        public CategoriaPsc CategoriaPsc { get; set; } = new CategoriaPsc();
+        public CategoriaPsc CategoriaPsc { get; set; }
         public Guid CategoriaPscId { get; set; }
-        public GrupoPsc GrupoPsc { get; set; } = new GrupoPsc();
+        public GrupoPsc GrupoPsc { get; set; } 
         public Guid GrupoPscId { get; set; }
         public bool Estado { get; set; }
         public DateTime FechaCreacion { get; set; }

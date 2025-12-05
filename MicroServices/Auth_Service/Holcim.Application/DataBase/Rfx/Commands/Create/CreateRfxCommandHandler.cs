@@ -56,7 +56,7 @@ namespace Holcim.Application.DataBase.Rfx.Commands.Create
 
             var aprobador = _dataBaseService.Usuario.Where(x => x.IdUsuario == createRfxRequest.UsuarioCreacion).FirstOrDefault().Aprobador;
 
-            if(aprobador != null && aprobador.Value)
+            if (aprobador != null && aprobador.Value)
             {
                 entity.EstadoId = _dataBaseService.Estado
                     .Include(x => x.TipoEstado)
@@ -88,30 +88,30 @@ namespace Holcim.Application.DataBase.Rfx.Commands.Create
                 var usuarioCreacion = await dbUser.Where(a => a.IdUsuario == createRfxRequest.UsuarioCreacion).FirstOrDefaultAsync();
                 var dbZona = _dataBaseService.ZonaHoraria.AsQueryable();
                 var replacementsPorProveedor = new Dictionary<string, Dictionary<string, string>>();
-                
-                foreach(var provider in createRfxRequest.ProveedoresInvitados)
-                {
-                    var dbProveedor =  _dataBaseService.Proveedor.AsQueryable();
-                    var dataProveedor = await dbProveedor.Where(a => a.Correo == provider).FirstOrDefaultAsync();
-                    var zonaHoraria = await dbZona.Where(a => a.IdZonaHoraria == dataProveedor.ZonaHorariaId).FirstOrDefaultAsync();
-                    var userProveedor = await dbUser.Where(a => a.IdUsuario == dataProveedor.UsuarioId).FirstOrDefaultAsync();
 
-;
-                    var replacements = new Dictionary<string, string>
-                    {
-                        { "{0}", userProveedor.Nombre.ToString() },
-                        { "{1}", entity.Nombre },
-                        { "{2}", entity.FechaFinal.ToString() + zonaHoraria.Nombre.ToString()},
-                        { "{3}", usuarioCreacion.Nombre.ToString() },
-                        { "{4}", usuarioCreacion.Correo.ToString() }
-                    };
-                    replacementsPorProveedor.Add(provider, replacements);
-                }
-               
+                //foreach(var provider in createRfxRequest.ProveedoresInvitados)
+                //{
+                //    var dbProveedor =  _dataBaseService.Proveedor.AsQueryable();
+                //    var dataProveedor = await _dataBaseService.Proveedor.Where(a => a.Correo == provider).FirstOrDefaultAsync();
+                //    var zonaHoraria = await dbZona.Where(a => a.IdZonaHoraria == dataProveedor.ZonaHorariaId).FirstOrDefaultAsync();
+                //    var userProveedor = await dbUser.Where(a => a.IdUsuario == dataProveedor.UsuarioId).FirstOrDefaultAsync();
 
 
-                await _createCorreoRfxCommandHandler.Execute(createRfxRequest.ProveedoresInvitados, "Invitacion Holcim Rfx",
-                    EnumDomain.InvitacionRfxProveedores.GetEnumMemberValue().ToString(), replacementsPorProveedor);
+                //    var replacements = new Dictionary<string, string>
+                //    {
+                //        { "{0}", userProveedor.Nombre.ToString() },
+                //        { "{1}", entity.Nombre },
+                //        { "{2}", entity.FechaFinal.ToString() + zonaHoraria.Nombre.ToString()},
+                //        { "{3}", usuarioCreacion.Nombre.ToString() },
+                //        { "{4}", usuarioCreacion.Correo.ToString() }
+                //    };
+                //    replacementsPorProveedor.Add(provider, replacements);
+                //}
+
+
+
+                //await _createCorreoRfxCommandHandler.Execute(createRfxRequest.ProveedoresInvitados, "Invitacion Holcim Rfx",
+                //    EnumDomain.InvitacionRfxProveedores.GetEnumMemberValue().ToString(), replacementsPorProveedor);
             }
 
             Guid estado = _dataBaseService.Estado.Include(x => x.TipoEstado)
@@ -123,7 +123,7 @@ namespace Holcim.Application.DataBase.Rfx.Commands.Create
 
             createRfxRequest.IdRfx = entity.IdRfx;
 
-        
+
 
             return ResponseApiService.Response(StatusCodes.Status201Created, createRfxRequest);
 

@@ -86,9 +86,9 @@ namespace Holcim.Application.DataBase.Proveedor.Commands.Create
                         { "{2}", userresponse.Data.Contrasena}
                     };
 
-                    await _createCorreoCommandHandler.Execute(new List<string> { creatProveedorRequest.Correo },
-                        "Creacion Proveedor Holcim",
-                         EnumDomain.CreacionProveedorHolcim.GetEnumMemberValue().ToString(), replacements);
+                    //await _createCorreoCommandHandler.Execute(new List<string> { creatProveedorRequest.Correo },
+                    //    "Creacion Proveedor Holcim",
+                    //     EnumDomain.CreacionProveedorHolcim.GetEnumMemberValue().ToString(), replacements);
 
                     await _dataBaseService.SaveAsync();
 
