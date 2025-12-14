@@ -19,8 +19,6 @@ namespace Holcim.AuctionService.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
-    //comment test
     [TypeFilter(typeof(ExceptionManager))]
     public class SubastaController : ControllerBase
     {
