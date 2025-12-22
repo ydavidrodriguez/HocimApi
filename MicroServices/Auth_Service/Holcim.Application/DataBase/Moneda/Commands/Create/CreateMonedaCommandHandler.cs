@@ -3,6 +3,7 @@ using Holcim.Application.Feature;
 using Holcim.Domain.Models.Moneda;
 using Microsoft.AspNetCore.Http;
 
+
 namespace Holcim.Application.DataBase.Moneda.Commands.Create
 {
     public class CreateMonedaCommandHandler : ICreateMonedaCommandHandler
@@ -17,25 +18,43 @@ namespace Holcim.Application.DataBase.Moneda.Commands.Create
 
         }
 
-        public async Task<object> Execute(CreateMonedaRequest createMonedaRequest)
+        public async Task<object> Execute(List<CreateMonedaRequest> createMonedaRequests)
         {
-            if (_dataBaseService.Moneda.Where(x => x.Nombre.Trim() == createMonedaRequest.Nombre.Trim()).FirstOrDefault() == null)
+            var duplicates = new List<CreateMonedaRequest>();
+            var created = new List<CreateMonedaRequest>();
+
+            if (createMonedaRequests == null || !createMonedaRequests.Any())
+                return ResponseApiService.Response(StatusCodes.Status400BadRequest,string.Empty, "No hay datos para procesar");
+
+            foreach (var req in createMonedaRequests)
             {
-                var Entitymapper = _mapper.Map<Domain.Entities.Moneda.Moneda>(createMonedaRequest);
-                Entitymapper.IdMoneda = Guid.NewGuid();
-                Entitymapper.Estado = true;
-                Entitymapper.FechaCreacion = DateTime.Now;
-                Entitymapper.FechaActulizacion = DateTime.Now;
-                _dataBaseService.Moneda.Add(Entitymapper);
+                if (_dataBaseService.Moneda.Any(m => m.Codigo == req.Codigo))
+                {
+                    duplicates.Add(req);
+                    continue;
+                }
+
+                var entity = _mapper.Map<Domain.Entities.Moneda.Moneda>(req);
+                entity.IdMoneda = Guid.NewGuid();
+                entity.Estado = true;
+                entity.FechaCreacion = DateTime.Now;
+                entity.FechaActulizacion = DateTime.Now;
+                _dataBaseService.Moneda.Add(entity);
+                created.Add(req);
+            }
+
+            if (created.Any())
                 await _dataBaseService.SaveAsync();
 
-                return ResponseApiService.Response(StatusCodes.Status201Created, createMonedaRequest);
+            var result = new {
+                Created = created,
+                Duplicates = duplicates
+            };
 
-            }
-            else
-            {
-                return ResponseApiService.Response(StatusCodes.Status202Accepted, null, "Moneda Ya Registrada");
-            }
+            var message = duplicates.Any() ? "Algunas monedas ya existían" : "Monedas creadas correctamente";
+            var status = created.Any() ? StatusCodes.Status201Created : StatusCodes.Status202Accepted;
+
+            return ResponseApiService.Response(status, result, message);
         }
 
     }

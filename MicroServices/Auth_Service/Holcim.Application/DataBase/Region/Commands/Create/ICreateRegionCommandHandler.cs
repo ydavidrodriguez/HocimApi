@@ -1,9 +1,10 @@
 ﻿using Holcim.Domain.Models.Region;
+using System.Collections.Generic;
 
 namespace Holcim.Application.DataBase.Region.Commands.Create
 {
     public interface ICreateRegionCommandHandler
     {
-        Task<CreateRegionRequest> Execute(CreateRegionRequest CreateRegionRequest);
+        Task<object> Execute(List<CreateRegionRequest> CreateRegionRequest);
     }
 }

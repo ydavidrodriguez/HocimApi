@@ -8,6 +8,7 @@ using Holcim.Application.Feature;
 using Holcim.Domain.Models.Region;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace Holcim.Controllers
 {
@@ -25,10 +26,9 @@ namespace Holcim.Controllers
 
         [HttpPost("PostCreateRegion")]
         public async Task<IActionResult> PostCreateRegion(
-        [FromServices] ICreateRegionCommandHandler CreateRegionCommandHandler, [FromBody] CreateRegionRequest createRegionRequest)
+        [FromServices] ICreateRegionCommandHandler CreateRegionCommandHandler, [FromBody] List<CreateRegionRequest> createRegionRequest)
         {
-            var data = await CreateRegionCommandHandler.Execute(createRegionRequest);
-            return StatusCode(StatusCodes.Status201Created, ResponseApiService.Response(StatusCodes.Status201Created, data));
+            return Ok(await CreateRegionCommandHandler.Execute(createRegionRequest));
         }
         [HttpPut("PutUpdateRegion")]
         public async Task<IActionResult> PutUpdateRegion(

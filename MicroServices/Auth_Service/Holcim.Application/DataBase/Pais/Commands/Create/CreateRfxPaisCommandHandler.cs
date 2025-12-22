@@ -19,11 +19,12 @@ namespace Holcim.Application.DataBase.Pais.Commands.Create
 
         public async Task<object> Execute(IEnumerable<Guid> paises, Guid rfxId)
         {
+            if (paises == null)
+                return ResponseApiService.Response(StatusCodes.Status400BadRequest, null, "No hay paises para procesar");
 
             foreach (var pais in paises)
             {
-                RfxPais paisnew = _dataBaseService.RfxPais.Where(x => x.PaisId == pais && x.RfxId == rfxId).FirstOrDefault();
-                if (paisnew == null)
+                if (!_dataBaseService.RfxPais.Any(x => x.PaisId == pais && x.RfxId == rfxId))
                 {
                     _dataBaseService.RfxPais.Add(new RfxPais
                     {
@@ -31,9 +32,7 @@ namespace Holcim.Application.DataBase.Pais.Commands.Create
                         PaisId = pais,
                         RfxId = rfxId
                     });
-
                 }
-
             }
 
             return ResponseApiService.Response(StatusCodes.Status202Accepted, null, "Pais Asociado al rfx");

@@ -3,6 +3,7 @@ using Holcim.Application.Feature;
 using Holcim.Domain.Models.Psc;
 using Microsoft.AspNetCore.Http;
 
+
 namespace Holcim.Application.DataBase.Psc.Commands.Create
 {
     public class CreatePscCommandHandler : ICreatePscCommandHandler
@@ -14,29 +15,45 @@ namespace Holcim.Application.DataBase.Psc.Commands.Create
         {
             _dataBaseService = dataBaseService;
             _mapper = mapper;
-          
         }
 
-        public async Task<object> Execute(CreatePscRequest CreatePscRequest)
+        public async Task<object> Execute(List<CreatePscRequest> CreatePscRequests)
         {
-            if (_dataBaseService.Pscs.Where(x => x.PscsId == CreatePscRequest.PscsId).FirstOrDefault() == null)
+            var duplicates = new List<CreatePscRequest>();
+            var created = new List<CreatePscRequest>();
+
+            if (CreatePscRequests == null || !CreatePscRequests.Any())
+                return ResponseApiService.Response(StatusCodes.Status400BadRequest, string.Empty, "No hay datos para procesar");
+
+            foreach (var req in CreatePscRequests)
             {
-          
-                var Entitymapper = _mapper.Map<Domain.Entities.Pscs.Pscs>(CreatePscRequest);
-                Entitymapper.IdPscs = Guid.NewGuid();
-                Entitymapper.Estado = true;
-                Entitymapper.FechaCreacion = DateTime.Now;
-                Entitymapper.FechaActulizacion = DateTime.Now;
-                _dataBaseService.Pscs.Add(Entitymapper);
+                if (_dataBaseService.Pscs.Any(p => p.PscsId == req.PscsId))
+                {
+                    duplicates.Add(req);
+                    continue;
+                }
+
+                var entity = _mapper.Map<Domain.Entities.Pscs.Pscs>(req);
+                entity.IdPscs = Guid.NewGuid();
+                entity.Estado = true;
+                entity.FechaCreacion = DateTime.Now;
+                entity.FechaActulizacion = DateTime.Now;
+                _dataBaseService.Pscs.Add(entity);
+                created.Add(req);
+            }
+
+            if (created.Any())
                 await _dataBaseService.SaveAsync();
 
-                return ResponseApiService.Response(StatusCodes.Status201Created, CreatePscRequest);
+            var result = new {
+                Created = created,
+                Duplicates = duplicates
+            };
 
-            }
-            else
-            {
-                return ResponseApiService.Response(StatusCodes.Status202Accepted, null, "Pscs Ya Registrada");
-            }
+            var message = duplicates.Any() ? "Algunos PSCs ya existían" : "Pscs creados correctamente";
+            var status = created.Any() ? StatusCodes.Status201Created : StatusCodes.Status202Accepted;
+
+            return ResponseApiService.Response(status, result, message);
         }
     }
 }

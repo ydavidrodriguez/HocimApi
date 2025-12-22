@@ -22,7 +22,7 @@ namespace Holcim.Controllers
 
         [HttpPost("PostCreateMoneda")]
         public async Task<IActionResult> PostCreateMoneda(
-        [FromServices] ICreateMonedaCommandHandler CreateRegionCommandHandler, [FromBody] CreateMonedaRequest createMonedaRequest)
+        [FromServices] ICreateMonedaCommandHandler CreateRegionCommandHandler, [FromBody] List<CreateMonedaRequest> createMonedaRequest)
         {
             return Ok(await CreateRegionCommandHandler.Execute(createMonedaRequest));
         }

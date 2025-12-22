@@ -4,7 +4,7 @@ namespace Holcim.Application.DataBase.Moneda.Commands.Create
 {
     public interface ICreateMonedaCommandHandler
     {
-        Task<object> Execute(CreateMonedaRequest createMonedaRequest);
+        Task<object> Execute(List<CreateMonedaRequest> createMonedaRequests);
         
     }
 }

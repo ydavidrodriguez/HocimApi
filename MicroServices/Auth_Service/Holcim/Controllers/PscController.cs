@@ -6,6 +6,7 @@ using Holcim.Application.DataBase.Psc.Commands.Update;
 using Holcim.Application.DataBase.Psc.Grupo.List;
 using Holcim.Application.Exception;
 using Holcim.Domain.Models.Psc;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Holcim.Controllers
@@ -32,7 +33,7 @@ namespace Holcim.Controllers
 
         [HttpPost("PostCreatePsc")]
         public async Task<IActionResult> PostCreatePsc(
-        [FromServices] ICreatePscCommandHandler CreatePscCommandHandler, [FromBody] CreatePscRequest createPscRequest)
+        [FromServices] ICreatePscCommandHandler CreatePscCommandHandler, [FromBody] List<CreatePscRequest> createPscRequest)
         {
             return Ok(await CreatePscCommandHandler.Execute(createPscRequest));
 

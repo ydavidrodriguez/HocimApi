@@ -54,14 +54,21 @@ namespace Holcim.Application.DataBase.Rfx.Commands.Create
             entity.FechaActulizacion = DateTime.Now;
             entity.Consecutivo = (_dataBaseService.Rfx.Any() ? _dataBaseService.Rfx.Max(x => x.Consecutivo) + 1 : 1);
 
-            var aprobador = _dataBaseService.Usuario.Where(x => x.IdUsuario == createRfxRequest.UsuarioCreacion).FirstOrDefault().Aprobador;
+            var usuarioEntity = _dataBaseService.Usuario.FirstOrDefault(x => x.IdUsuario == createRfxRequest.UsuarioCreacion);
+            var aprobador = usuarioEntity?.Aprobador;
 
             if (aprobador != null && aprobador.Value)
             {
-                entity.EstadoId = _dataBaseService.Estado
+               Holcim.Domain.Entities.Estado.Estado  estadoAprobadoEntity = _dataBaseService.Estado
                     .Include(x => x.TipoEstado)
-                    .Where(x => x.TipoEstado.Descripcion == EnumDomain.rfx.GetEnumMemberValue() && x.Nombre == EnumDomain.RfxAprobado.GetEnumMemberValue()).FirstOrDefault().IdEstado;
-                createRfxRequest.EstadoId = entity.EstadoId;
+                    .Where(x => x.TipoEstado.Descripcion == EnumDomain.rfx.GetEnumMemberValue() && x.Nombre == EnumDomain.RfxAprobado.GetEnumMemberValue())
+                    .FirstOrDefault();
+
+                if (estadoAprobadoEntity != null)
+                {
+                    entity.EstadoId = estadoAprobadoEntity.IdEstado;
+                    createRfxRequest.EstadoId = entity.EstadoId;
+                }
             }
 
 
@@ -74,8 +81,9 @@ namespace Holcim.Application.DataBase.Rfx.Commands.Create
             await _dataBaseService.SaveAsync();
 
 
-            if (createRfxRequest.ProveedoresInvitados != null &&
-                createRfxRequest.EstadoId == _dataBaseService.Estado.Where(x => x.Nombre == EnumDomain.RfxAprobado.GetEnumMemberValue().ToString()).First().IdEstado)
+            var aprobadoEstadoEntity = _dataBaseService.Estado.Where(x => x.Nombre == EnumDomain.RfxAprobado.GetEnumMemberValue().ToString()).FirstOrDefault();
+            if (createRfxRequest.ProveedoresInvitados != null && aprobadoEstadoEntity != null &&
+                createRfxRequest.EstadoId == aprobadoEstadoEntity.IdEstado)
             {
                 //TimeZoneInfo zonaOrigen = TimeZoneInfo.FindSystemTimeZoneById("Tokyo Standard Time");
 
@@ -114,9 +122,11 @@ namespace Holcim.Application.DataBase.Rfx.Commands.Create
                 //    EnumDomain.InvitacionRfxProveedores.GetEnumMemberValue().ToString(), replacementsPorProveedor);
             }
 
-            Guid estado = _dataBaseService.Estado.Include(x => x.TipoEstado)
-                 .Where(x => x.TipoEstado.Descripcion == EnumDomain.TipoEstadoProveedorRfx.GetEnumMemberValue() &&
-                  x.Nombre == EnumDomain.PendienteRespuesta.GetEnumMemberValue()).First().IdEstado;
+              var estadoEntity = _dataBaseService.Estado.Include(x => x.TipoEstado)
+                  .Where(x => x.TipoEstado.Descripcion == EnumDomain.TipoEstadoProveedorRfx.GetEnumMemberValue() &&
+                   x.Nombre == EnumDomain.PendienteRespuesta.GetEnumMemberValue()).FirstOrDefault();
+
+              Guid estado = estadoEntity != null ? estadoEntity.IdEstado : Guid.Empty;
 
             await _createInvitadosCommandHandler.Execute(createRfxRequest, entity.IdRfx, estado);
 
