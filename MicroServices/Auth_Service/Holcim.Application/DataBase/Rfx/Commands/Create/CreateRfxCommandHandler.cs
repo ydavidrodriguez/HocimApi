@@ -44,7 +44,7 @@ namespace Holcim.Application.DataBase.Rfx.Commands.Create
         {
             if (_dataBaseService.Rfx.Any(x => x.Nombre.Trim() == createRfxRequest.Nombre.Trim()))
             {
-                return ResponseApiService.Response(StatusCodes.Status202Accepted, null, "Rfx Ya Registrado");
+                return ResponseApiService.Response(StatusCodes.Status202Accepted, string.Empty, "Rfx Ya Registrado");
             }
 
             var entity = _mapper.Map<Domain.Entities.Rfx.Rfx>(createRfxRequest);
@@ -59,8 +59,8 @@ namespace Holcim.Application.DataBase.Rfx.Commands.Create
 
             if (aprobador != null && aprobador.Value)
             {
-               Holcim.Domain.Entities.Estado.Estado  estadoAprobadoEntity = _dataBaseService.Estado
-                    .Include(x => x.TipoEstado)
+               Holcim.Domain.Entities.Estado.Estado  estadoAprobadoEntity = _dataBaseService?.Estado
+                    ?.Include(x => x.TipoEstado)
                     .Where(x => x.TipoEstado.Descripcion == EnumDomain.rfx.GetEnumMemberValue() && x.Nombre == EnumDomain.RfxAprobado.GetEnumMemberValue())
                     .FirstOrDefault();
 

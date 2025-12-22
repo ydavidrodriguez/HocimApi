@@ -26,7 +26,7 @@ namespace Holcim.Application.DataBase.Region.Commands.Create
             var created = new List<CreateRegionRequest>();
 
             if (CreateRegionRequests == null || !CreateRegionRequests.Any())
-                return ResponseApiService.Response(StatusCodes.Status400BadRequest, null, "No hay datos para procesar");
+                return ResponseApiService.Response(StatusCodes.Status400BadRequest, string.Empty, "No hay datos para procesar");
 
             foreach (var req in CreateRegionRequests)
             {

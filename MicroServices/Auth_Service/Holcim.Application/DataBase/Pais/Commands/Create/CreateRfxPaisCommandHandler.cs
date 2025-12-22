@@ -20,7 +20,7 @@ namespace Holcim.Application.DataBase.Pais.Commands.Create
         public async Task<object> Execute(IEnumerable<Guid> paises, Guid rfxId)
         {
             if (paises == null)
-                return ResponseApiService.Response(StatusCodes.Status400BadRequest, null, "No hay paises para procesar");
+                return ResponseApiService.Response(StatusCodes.Status400BadRequest, string.Empty, "No hay paises para procesar");
 
             foreach (var pais in paises)
             {
