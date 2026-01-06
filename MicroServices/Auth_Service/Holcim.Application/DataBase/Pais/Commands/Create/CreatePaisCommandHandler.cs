@@ -26,18 +26,28 @@ namespace Holcim.Application.DataBase.Pais.Commands.Create
             _GetTraduccionService = getTraduccionService;
         }
 
-        public async Task<object> Execute(CreatePaisRequest createPaisRequest)
+        public async Task<object> Execute(List<CreatePaisRequest> createPaisRequest)
         {
-            if (_dataBaseService.Pais.Where(x => x.Nombre.Trim() == createPaisRequest.Nombre.Trim()).FirstOrDefault() == null)
-            {
-                string nombretraduccion = await _GetTraduccionService.Execute(createPaisRequest.Nombre);
+            var duplicates = new List<CreatePaisRequest>();
+            var created = new List<CreatePaisRequest>();
 
-                var Entitymapper = _mapper.Map<Domain.Entities.Pais.Pais>(createPaisRequest);
+            if (createPaisRequest == null || !createPaisRequest.Any())
+                return ResponseApiService.Response(StatusCodes.Status400BadRequest, string.Empty, "No hay datos para procesar");
+
+            foreach (var req in createPaisRequest)
+            {
+                if (_dataBaseService.Pais.Any(x => x.Nombre == req.Nombre))
+                {
+                    duplicates.Add(req);
+                    continue;
+                }
+
+                var Entitymapper = _mapper.Map<Domain.Entities.Pais.Pais>(req);
                 Entitymapper.IdPais = Guid.NewGuid();
                 Entitymapper.Estado = true;
                 Entitymapper.FechaCreacion = DateTime.Now;
                 Entitymapper.FechaActulizacion = DateTime.Now;
-                Entitymapper.Nombre = nombretraduccion;
+                Entitymapper.Nombre = req.Nombre;
                 Entitymapper.TipoPaisId = _dataBaseService.TipoPais.Where(x => x.Descripcion == EnumDomain.PaisGrud.GetEnumMemberValue().ToString()).First().IdTipoPais;
                 _dataBaseService.Pais.Add(Entitymapper);
 
@@ -45,19 +55,29 @@ namespace Holcim.Application.DataBase.Pais.Commands.Create
 
                 zonaHorariaPais.IdZonaHorariaPais = Guid.NewGuid();
                 zonaHorariaPais.PaisId = Entitymapper.IdPais;
-                zonaHorariaPais.ZonaHorariaId = createPaisRequest.ZonaHoraria;
+                zonaHorariaPais.ZonaHorariaId = req.ZonaHoraria;
                 zonaHorariaPais.Estado = true;
 
-                _dataBaseService.ZonaHorariaPais.Add(zonaHorariaPais);
+
+                _dataBaseService.Pais.Add(Entitymapper);
+                created.Add(req);
+            }
+
+            if (created.Any())
                 await _dataBaseService.SaveAsync();
 
-                return ResponseApiService.Response(StatusCodes.Status201Created, createPaisRequest);
-
-            }
-            else
+            var result = new
             {
-                return ResponseApiService.Response(StatusCodes.Status202Accepted, null, "Pais Ya Registrado");
-            }
+                Created = created,
+                Duplicates = duplicates
+            };
+
+            var message = duplicates.Any() ? "Algunos paises ya existían" : "Paises creados correctamente";
+            var status = created.Any() ? StatusCodes.Status201Created : StatusCodes.Status202Accepted;
+
+            return ResponseApiService.Response(status, result, message);
+
+
         }
 
     }
