@@ -33,10 +33,9 @@ namespace Holcim.Controllers
 
         [HttpPost("PostCreateUnidadMedida")]
         public async Task<IActionResult> PostCreateUnidadMedida(
-        [FromServices] ICreateUnidadMedidaCommandHandler CreateUnidadMedidaCommandHandler, [FromBody] CreateUnidadMedidaRequest createUnidadMedidaRequest)
+        [FromServices] ICreateUnidadMedidaCommandHandler CreateUnidadMedidaCommandHandler, [FromBody] List<CreateUnidadMedidaRequest> createUnidadMedidaRequest)
         {
             return Ok(await CreateUnidadMedidaCommandHandler.Execute(createUnidadMedidaRequest));
-
         }
 
         [HttpGet("GetUnidadMedidaById")]
