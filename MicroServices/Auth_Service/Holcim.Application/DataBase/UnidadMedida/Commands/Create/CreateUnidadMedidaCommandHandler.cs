@@ -40,8 +40,6 @@ namespace Holcim.Application.DataBase.UnidadMedida.Commands.Create
                 _dataBaseService.UnidadMedida.Add(Entitymapper);
                 created.Add(createUnidadMedida);
 
-
-                return ResponseApiService.Response(StatusCodes.Status201Created, createUnidadMedidaRequest);
             }
 
             if (created.Any())
