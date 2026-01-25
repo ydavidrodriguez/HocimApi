@@ -23,6 +23,8 @@ namespace Holcim.Domain.Models.Rfx
         public int Consecutivo { get; set; }
         public long? ValorReferencia { get; set; }
         public bool Prueba { get; set; }
+        public string? Sitio { get; set; }
+        public string? DireccionEntrega { get; set; }
 
 
     }

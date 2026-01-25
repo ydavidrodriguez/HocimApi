@@ -36,6 +36,7 @@ namespace Holcim.Application.DataBase.Moneda.Commands.Create
 
                 var entity = _mapper.Map<Domain.Entities.Moneda.Moneda>(req);
                 entity.IdMoneda = Guid.NewGuid();
+                entity.ColumnasExtras = req.ColumnasExtras;
                 entity.Estado = true;
                 entity.FechaCreacion = DateTime.Now;
                 entity.FechaActulizacion = DateTime.Now;

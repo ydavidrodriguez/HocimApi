@@ -28,6 +28,7 @@ namespace Holcim.Application.DataBase.Moneda.Commands.Update
                     Entity.Codigo = UpdateMonedaRequest.Codigo;
                     Entity.Nombre = UpdateMonedaRequest.Nombre;
                     Entity.Descripcion = UpdateMonedaRequest.Descripcion;
+                    Entity.ColumnasExtras = UpdateMonedaRequest.ColumnasExtras;
                     Entity.Estado = UpdateMonedaRequest.Estado;
                     Entity.FechaActulizacion = DateTime.Now;
                     _dataBaseService.Moneda.Update(Entity);

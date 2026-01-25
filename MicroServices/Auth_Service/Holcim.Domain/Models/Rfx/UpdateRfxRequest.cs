@@ -13,13 +13,15 @@ namespace Holcim.Domain.Models.Rfx
         public Guid TipoRfxId { get; set; }
         public DateTime FechaInicial { get; set; }
         public DateTime FechaFinal { get; set; }
-        public List<Guid> PaisId { get; set; }
+        public List<Guid>? PaisId { get; set; }
         public Guid MonedaId { get; set; }
         public Guid EstadoId { get; set; }
         public List<UpdateArchivoSobre>? ArchivoSobre { get; set; }
         public Guid UsuarioCreacion { get; set; }
         public List<string>? ProveedoresInvitados { get; set; }
         public long? ValorReferencia { get; set; }
+        public string? Sitio { get; set; }
+        public string? DireccionEntrega { get; set; }
 
 
     }

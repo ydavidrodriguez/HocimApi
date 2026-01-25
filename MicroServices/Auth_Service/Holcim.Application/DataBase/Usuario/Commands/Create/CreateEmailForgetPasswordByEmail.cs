@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Holcim.Application.DataBase.Correo.Commands.Create;
 using Holcim.Application.Feature;
+using Holcim.Application.Helpers;
 using Holcim.Domain.Entities.Enums;
 using Microsoft.AspNetCore.Http;
 
@@ -29,6 +30,8 @@ namespace Holcim.Application.DataBase.Usuario.Commands.Create
             {
 
                 usuario.PrimerIngreso = true;
+                var tempPassword = HelperCorreo.CreatePassword(10);
+                usuario.Contrasena = HelperPassword.Hash(tempPassword);
                 _dataBaseService.Usuario.Update(usuario);
 
                 //_createCorreoCommandHandler.Execute(createEmailRequest);
@@ -36,7 +39,7 @@ namespace Holcim.Application.DataBase.Usuario.Commands.Create
                 var replacements = new Dictionary<string, string>
                 {
                     { "{0}", usuario.Nombre },
-                    { "{1}", usuario.Contrasena }
+                    { "{1}", tempPassword }
                 };
 
                 _createCorreoCommandHandler.Execute(new List<string> { usuario.Correo }, "Recuperacion Contraseña Holcim",

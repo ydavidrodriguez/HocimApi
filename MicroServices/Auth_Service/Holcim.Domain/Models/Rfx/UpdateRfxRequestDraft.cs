@@ -22,6 +22,8 @@ namespace Holcim.Domain.Models.Rfx
         public List<string>? ProveedoresInvitados { get; set; }
         public int? ValorReferencia { get; set; }
         public bool? Prueba { get; set; }
+        public string? Sitio { get; set; }
+        public string? DireccionEntrega { get; set; }
 
     }
 }

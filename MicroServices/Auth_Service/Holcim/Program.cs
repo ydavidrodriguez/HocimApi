@@ -40,7 +40,11 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddHttpClient("ApiGatewayService", client =>
 {
-    client.BaseAddress = new Uri(servicioConfig["ApiGatwey"]);
+    var apiGateway = servicioConfig["ApiGatwey"];
+    if (!string.IsNullOrWhiteSpace(apiGateway))
+    {
+        client.BaseAddress = new Uri(apiGateway);
+    }
 });
 
 var app = builder.Build();

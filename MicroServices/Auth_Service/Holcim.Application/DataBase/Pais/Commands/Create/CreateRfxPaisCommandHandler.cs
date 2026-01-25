@@ -17,10 +17,10 @@ namespace Holcim.Application.DataBase.Pais.Commands.Create
             _mapper = mapper;
         }
 
-        public async Task<object> Execute(IEnumerable<Guid> paises, Guid rfxId)
+        public async Task<object> Execute(IEnumerable<Guid>? paises, Guid rfxId)
         {
-            if (paises == null)
-                return ResponseApiService.Response(StatusCodes.Status400BadRequest, string.Empty, "No hay paises para procesar");
+            if (paises == null || !paises.Any())
+                return ResponseApiService.Response(StatusCodes.Status202Accepted, null, "Sin gru para asociar");
 
             foreach (var pais in paises)
             {

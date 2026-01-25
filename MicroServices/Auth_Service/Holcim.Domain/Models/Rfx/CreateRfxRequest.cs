@@ -12,7 +12,7 @@ namespace Holcim.Domain.Models.Rfx
         public Guid TipoRfxId { get; set; }
         public DateTime FechaInicial { get; set; }
         public DateTime FechaFinal { get; set; }
-        public List<Guid> PaisId { get; set; }
+        public List<Guid>? PaisId { get; set; }
         public Guid MonedaId { get; set; }
         public Guid EstadoId { get; set; }
         public List<ArchivoSobre>? ArchivoSobre { get; set; }
@@ -22,6 +22,8 @@ namespace Holcim.Domain.Models.Rfx
         public long? ValorReferencia { get; set; }
         public bool Prueba { get; set; }
         public Guid? IdRfx { get; set; }
+        public string? Sitio { get; set; }
+        public string? DireccionEntrega { get; set; }
 
     }
 }

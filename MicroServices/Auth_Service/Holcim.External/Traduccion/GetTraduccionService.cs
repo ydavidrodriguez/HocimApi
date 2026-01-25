@@ -27,11 +27,16 @@ namespace Holcim.External.Traduccion
             var gettraaducion = await client.GetAsync("/trasnlator/api/Translate/GetTranslateText?Text=" + texto + "&lang=" + lang);
             if (gettraaducion.StatusCode != System.Net.HttpStatusCode.OK)
             {
-                return gettraaducion.RequestMessage.ToString();
+                return gettraaducion.RequestMessage?.ToString() ?? string.Empty;
             }
             var traduccion = await gettraaducion.Content.ReadAsStringAsync();
-            BaseResponseModel IdiomasaResult = JsonConvert.DeserializeObject<BaseResponseModel>(traduccion);
-            List<TraduccionResponse> IdiomaRequest = IdiomasaResult.Data.ToObject<List<TraduccionResponse>>();
+            BaseResponseModel? IdiomasaResult = JsonConvert.DeserializeObject<BaseResponseModel>(traduccion);
+            if (IdiomasaResult?.Data == null)
+            {
+                return string.Empty;
+            }
+
+            List<TraduccionResponse> IdiomaRequest = IdiomasaResult.Data.ToObject<List<TraduccionResponse>>() ?? new List<TraduccionResponse>();
             List<IdiomaResponse> idiomanew = new List<IdiomaResponse>();
 
             foreach (var idioma in IdiomaRequest)
@@ -50,7 +55,7 @@ namespace Holcim.External.Traduccion
         public string GetTranslatedName(string jsonNombre, string key)
         {
             var idioma = JsonConvert.DeserializeObject<List<IdiomaResponse>>(jsonNombre);
-            return idioma.Where(x => x.Idioma == key).FirstOrDefault().Valor;
+            return idioma?.FirstOrDefault(x => x.Idioma == key)?.Valor ?? string.Empty;
         }
     }
 }

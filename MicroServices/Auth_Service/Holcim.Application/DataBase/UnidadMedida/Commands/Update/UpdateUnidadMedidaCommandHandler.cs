@@ -28,6 +28,7 @@ namespace Holcim.Application.DataBase.UnidadMedida.Commands.Update
                     unidadMedida.Estado = updateUnidadMedidaRequest.Estado;
                     unidadMedida.UdmCode = updateUnidadMedidaRequest.UdmCode;
                     unidadMedida.UdmDescripcion = updateUnidadMedidaRequest.UdmDescripcion;
+                    unidadMedida.ColumnasExtras = updateUnidadMedidaRequest.ColumnasExtras;
                     _dataBaseService.UnidadMedida.Update(unidadMedida);
                     await _dataBaseService.SaveAsync();
 

@@ -55,7 +55,9 @@ namespace Holcim.Application.DataBase.Rfx.Commands.List
                          TipoRfxId = x.TipoRfxId,
                          UsuarioCreacion = x.UsuarioCreacion,
                          UsuarioCreacionNombre = _dataBaseService.Usuario.Where(c => c.IdUsuario == x.UsuarioCreacion).FirstOrDefault().Nombre + " " + _dataBaseService.Usuario.Where(c => c.IdUsuario == x.UsuarioCreacion).FirstOrDefault().Apellido,
-                         ValorReferencia = x.ValorReferencia
+                         ValorReferencia = x.ValorReferencia,
+                         Sitio = x.Sitio,
+                         DireccionEntrega = x.DireccionEntrega
                      })
                      .OrderByDescending(x => x.FechaCreacion)
                      .ToList();

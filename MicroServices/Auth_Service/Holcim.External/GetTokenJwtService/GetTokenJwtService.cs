@@ -4,6 +4,8 @@ using System.Text;
 using Holcim.Application;
 using Holcim.Application.External.GettokenJwt;
 using Holcim.Application.Feature;
+using Holcim.Application.DataBase.Correo.Commands.Create;
+using Holcim.Application.Helpers;
 using Holcim.Domain.Entities.Usuario;
 using Holcim.Domain.Models.Usuario;
 using Microsoft.AspNetCore.Http;
@@ -17,46 +19,75 @@ namespace Holcim.External.GetTokenJwtService
     {
         private readonly IConfiguration _config;
         private readonly IDataBaseService _dataBaseService;
-        public GetTokenJwtService(IConfiguration config, IDataBaseService dataBaseService)
+        private readonly ICreateCorreoCommandHandler _createCorreoCommandHandler;
+
+        public GetTokenJwtService(IConfiguration config, IDataBaseService dataBaseService, ICreateCorreoCommandHandler createCorreoCommandHandler)
         {
             _config = config;
             _dataBaseService = dataBaseService;
+            _createCorreoCommandHandler = createCorreoCommandHandler;
         }
 
         public object Execute(LoginUsuarioRequest loginUsuarioRequest)
         {
 
             var usuario = _dataBaseService.Usuario.Include(x=> x.Idioma)
-                .Where(x => x.Correo == loginUsuarioRequest.Correo && x.Contrasena == loginUsuarioRequest.Contrasena && x.Estado == true).FirstOrDefault();
+                .Where(x => x.Correo == loginUsuarioRequest.Correo && x.Estado == true).FirstOrDefault();
 
-            if (usuario != null)
+            if (usuario != null && HelperPassword.Verify(loginUsuarioRequest.Contrasena, usuario.Contrasena))
             {
                 usuario.UltimaConexion = DateTime.Now;
                 _dataBaseService.Usuario.Update(usuario);
 
-                string tokefinal = getoken(loginUsuarioRequest);
+                var otpCode = HelperCorreo.CreateOtpCode(6);
+                var now = DateTime.Now;
+                var expiresAt = now.AddMinutes(10);
 
-                UsuarioToken usuarioToken = new UsuarioToken();
+                var prevOtps = _dataBaseService.UsuarioOtp
+                    .Where(x => x.UsuarioId == usuario.IdUsuario && !x.Usado)
+                    .ToList();
+                if (prevOtps.Any())
+                {
+                    foreach (var otp in prevOtps)
+                    {
+                        otp.Usado = true;
+                    }
+                }
 
-                usuarioToken.IdUsuarioToken = Guid.NewGuid();
-                usuarioToken.Idusuario = usuario.IdUsuario;
-                usuarioToken.Token = tokefinal;
-                usuarioToken.Estado = true;
-                usuarioToken.FechaCreacion = DateTime.Now;
+                var usuarioOtp = new UsuarioOtp
+                {
+                    IdUsuarioOtp = Guid.NewGuid(),
+                    UsuarioId = usuario.IdUsuario,
+                    Codigo = otpCode,
+                    FechaCreacion = now,
+                    FechaExpiracion = expiresAt,
+                    Usado = false
+                };
 
-                _dataBaseService.UsuarioToken.Add(usuarioToken);
+                _dataBaseService.UsuarioOtp.Add(usuarioOtp);
 
                 _dataBaseService.SaveAsync();
 
-                GetTokenUsuarioResponse getTokenUsuarioResponse = new GetTokenUsuarioResponse();
+                var replacements = new Dictionary<string, string>
+                {
+                    { "{CODE}", otpCode },
+                    { "{NOMBRE}", usuario.Nombre ?? string.Empty }
+                };
 
-                getTokenUsuarioResponse.Token = tokefinal;
-                getTokenUsuarioResponse.IdUsuario = usuario.IdUsuario;
-                getTokenUsuarioResponse.Idioma = usuario.Idioma.Key.ToString();
+                _createCorreoCommandHandler.Execute(
+                    new List<string> { usuario.Correo },
+                    "Código de verificación",
+                    "2FA",
+                    replacements);
 
+                var pendingResponse = new TwoFactorPendingResponse
+                {
+                    IdUsuario = usuario.IdUsuario,
+                    Correo = usuario.Correo,
+                    ExpiraEn = expiresAt
+                };
 
-
-                return ResponseApiService.Response(StatusCodes.Status201Created, getTokenUsuarioResponse);
+                return ResponseApiService.Response(StatusCodes.Status201Created, pendingResponse, "Código enviado");
 
             }
             else

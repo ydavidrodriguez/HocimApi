@@ -1398,6 +1398,35 @@ namespace Holcim.Persistence.Migrations
                     b.ToTable("UsuarioToken");
                 });
 
+            modelBuilder.Entity("Holcim.Domain.Entities.Usuario.UsuarioOtp", b =>
+                {
+                    b.Property<Guid>("IdUsuarioOtp")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Codigo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaExpiracion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Usado")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("UsuarioId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("IdUsuarioOtp");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("UsuarioOtp");
+                });
+
             modelBuilder.Entity("Holcim.Domain.Entities.UsuarioNotificaciones.UsuarioNotificaciones", b =>
                 {
                     b.Property<Guid>("IdUsuarioNotificaciones")

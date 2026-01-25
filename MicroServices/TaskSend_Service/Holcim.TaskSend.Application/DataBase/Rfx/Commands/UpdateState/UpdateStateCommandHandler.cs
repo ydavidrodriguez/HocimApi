@@ -30,7 +30,7 @@ namespace Holcim.TaskSend.Application.DataBase.Rfx.Commands.UpdateState
             try
             {
 
-                Console.WriteLine("Tarea en segundo plano iniciada.");
+                Console.WriteLine("Tarea en segundo plano estado iniciada.");
 
                 while (!stoppingToken.IsCancellationRequested)
                 {

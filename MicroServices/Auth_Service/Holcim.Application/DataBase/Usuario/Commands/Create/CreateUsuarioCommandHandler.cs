@@ -34,12 +34,18 @@ namespace Holcim.Application.DataBase.Usuario.Commands.Create
 
                 var Entitymapper = _mapper.Map<Domain.Entities.Usuario.Usuario>(createUsuarioRequest);
                 BaseResponseModel baseResponseModelEntityUser = (BaseResponseModel)await _createUsuarioGenericoCommandHandler.Execute(Entitymapper, createUsuarioRequest.RolId, _dataBaseService.TipoUsuario.Where(x => x.Nombre == EnumDomain.TipoUsuarioHolcim.GetEnumMemberValue().ToString().Trim()).First().IdTipoUsuario);
+                var createdUser = baseResponseModelEntityUser.Data as UsuarioCreatedResponse;
 
                 CuentaAdmin cuentaAdmin = new CuentaAdmin();
 
                 cuentaAdmin.IdCuentaAdmin = Guid.NewGuid();
                 cuentaAdmin.PaisId = createUsuarioRequest.PaisId;
-                cuentaAdmin.UsuarioId = baseResponseModelEntityUser.Data.IdUsuario;
+                if (createdUser == null)
+                {
+                    return ResponseApiService.Response(StatusCodes.Status202Accepted, null, "No se pudo crear el usuario");
+                }
+
+                cuentaAdmin.UsuarioId = createdUser.IdUsuario;
                 cuentaAdmin.Estado = true;
                 cuentaAdmin.FechaActulizacion = DateTime.Now;
                 cuentaAdmin.FechaActulizacion = DateTime.Now;
@@ -50,7 +56,7 @@ namespace Holcim.Application.DataBase.Usuario.Commands.Create
                 {
                     { "{0}", createUsuarioRequest.Nombre },
                     { "{1}", createUsuarioRequest.Correo },
-                    { "{2}", baseResponseModelEntityUser.Data.Contrasena}
+                    { "{2}", createdUser?.Contrasena ?? string.Empty }
                 };
 
                 await _createCorreoCommandHandler.Execute(new List<string> { createUsuarioRequest.Correo }, "Creacion Usuario Holcim",

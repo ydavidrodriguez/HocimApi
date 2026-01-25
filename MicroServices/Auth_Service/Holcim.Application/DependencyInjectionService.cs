@@ -67,6 +67,7 @@ using Holcim.Application.DataBase.UnidadMedida.Commands.Update;
 using Holcim.Application.DataBase.Usuario.Commands.Create;
 using Holcim.Application.DataBase.Usuario.Commands.List;
 using Holcim.Application.DataBase.Usuario.Commands.Update;
+using Holcim.Application.DataBase.Usuario.Commands.VerifyOtp;
 using Holcim.Application.DataBase.ZonaHoraria.Commands.List;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -93,6 +94,7 @@ namespace Holcim.Application
             services.AddTransient<IUpdatePasswordUsuarioCommandHandler, UpdatePasswordUsuarioCommandHandler>();
             services.AddTransient<ICreateEmailForgetPasswordByEmail, CreateEmailForgetPasswordByEmail>();
             services.AddTransient<ICreateUsuarioGenericoCommandHandler, CreateUsuarioGenericoCommandHandler>();
+            services.AddTransient<IVerifyOtpCommandHandler, VerifyOtpCommandHandler>();
 
 
             //Rol

@@ -1,4 +1,7 @@
-﻿namespace Holcim.Domain.Models.Psc
+﻿using Holcim.Domain.Models.Moneda;
+using System.Collections.Generic;
+
+namespace Holcim.Domain.Models.Psc
 {
     public class UpdatePscRequest
     {
@@ -8,6 +11,7 @@
         public Guid CategoriaPscId { get; set; }
         public Guid GrupoPscId { get; set; }
         public bool Estado { get; set; }
+        public List<ColumnaExtraDto>? ColumnasExtras { get; set; }
 
     }
 }

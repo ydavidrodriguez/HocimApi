@@ -81,18 +81,20 @@ namespace Holcim.Application.DataBase.Rfx.Commands.Update
                 _dataBaseService.Rfx.Update(rfx);
 
 
-                //paises que contiene el rfx 
+                    //paises que contiene el rfx 
+                    if (updateRfxRequest.PaisId != null)
+                    {
+                      List<RfxPais> RfxPaisToRemove =
+                          _dataBaseService.RfxPais
+                          .Where(x => x.PaisId.HasValue && !updateRfxRequest.PaisId.Contains(x.PaisId.Value)
+                          && x.RfxId == updateRfxRequest.IdRfx).ToList();
 
-                List<RfxPais> RfxPaisToRemove =
-                      _dataBaseService.RfxPais
-                      .Where(x => !updateRfxRequest.PaisId.Contains(x.PaisId)
-                      && x.RfxId == updateRfxRequest.IdRfx).ToList();
+                      //Eliminar los gru que ya no deben estar asociados
+                      _dataBaseService.RfxPais.RemoveRange(RfxPaisToRemove);
 
-                //Eliminar los gru que ya no deben estar asociados
-                _dataBaseService.RfxPais.RemoveRange(RfxPaisToRemove);
-
-                //Crea los Gru nuevos 
-                await _createPaisCommandHandler.Execute(updateRfxRequest.PaisId, rfx.IdRfx);
+                      //Crea los Gru nuevos 
+                      await _createPaisCommandHandler.Execute(updateRfxRequest.PaisId, rfx.IdRfx);
+                    }
 
 
                 //Elimar los items quitados

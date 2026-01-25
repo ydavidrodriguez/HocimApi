@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Holcim.Application.Feature;
+using Holcim.Application.Helpers;
 using Holcim.Domain.Models.Usuario;
 using Microsoft.AspNetCore.Http;
 
@@ -23,7 +24,7 @@ namespace Holcim.Application.DataBase.Usuario.Commands.Update
             if (usuario != null)
             {
                 usuario.FechaActulizacion = DateTime.Now;
-                usuario.Contrasena = updatePasswordUsuario.Contrasena.ToString();
+                usuario.Contrasena = HelperPassword.Hash(updatePasswordUsuario.Contrasena.ToString());
                 usuario.PrimerIngreso = false;
 
                 _dataBaseService.Usuario.Update(usuario);

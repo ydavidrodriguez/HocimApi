@@ -1,4 +1,6 @@
-﻿using Holcim.Application;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using Holcim.Application;
 using Holcim.Application.External.Dapper;
 using Holcim.Application.External.GettokenJwt;
 using Holcim.Application.External.Traduccion;
@@ -15,27 +17,41 @@ namespace Holcim.External
     {
         public static IServiceCollection AddExternal(this IServiceCollection services, IConfiguration configuration)
         {
-
-
-            string server = configuration["ConnectionStrings:DB_SERVER"];
-            string port = configuration["ConnectionStrings:DB_PORT"];
-            string database = configuration["ConnectionStrings:DB_NAME"];
-            string user = configuration["ConnectionStrings:DB_USER"];
-            string password = configuration["ConnectionStrings:DB_PASSWORD"];
-            string Certificate = configuration["ConnectionStrings:DB_CERIFICATE"];
-
-            string connectionString = $"Server={server},{port};Database={database};Uid={user};Password={password};Encrypt=True;MultipleActiveResultSets=true;TrustServerCertificate={Certificate}";
-
+ 
             //string connectionString = $"Server={server},1443;Database={database};Uid={user};Password={password};TrustServerCertificate={Certificate};Encrypt=True"; 
-
-            services.AddDbContext<DataBaseService>(options =>
-            options.UseSqlServer(connectionString));
 
             services.AddScoped<IDataBaseService, DataBaseService>();
             //GetToken
             services.AddTransient<IGettokenJwt, GetTokenJwtService.GetTokenJwtService>();
             services.AddTransient<IDapperProcedure, DapperProcedure>();
             services.AddTransient<IGetTraduccionService, GetTraduccionService>();
+            services.AddTransient<ISecretsManagerService, SecretsManagerService>();
+
+            var sp = services.BuildServiceProvider();
+            var secretManager = sp.GetRequiredService<ISecretsManagerService>();
+
+            string BDServer = secretManager.GetSecretAsync("esoursing/database").Result ?? string.Empty;
+            _ = string.IsNullOrWhiteSpace(BDServer) ? null : JsonSerializer.Deserialize<DbSecrets>(BDServer);
+            // string port = databaseSecret.DBPort;
+            // string database = databaseSecret.DBName;
+            // string user = databaseSecret.User;
+            // string password = databaseSecret.password;
+            // string Certificate = true.ToString(); 
+            // string server = databaseSecret.DBServer;
+
+              
+            string server = configuration["ConnectionStrings:DB_SERVER"] ?? string.Empty;
+            string port = configuration["ConnectionStrings:DB_PORT"] ?? string.Empty;
+            string database = configuration["ConnectionStrings:DB_NAME"] ?? string.Empty;
+            string user = configuration["ConnectionStrings:DB_USER"] ?? string.Empty;
+            string password = configuration["ConnectionStrings:DB_PASSWORD"] ?? string.Empty;
+            string Certificate = configuration["ConnectionStrings:DB_CERIFICATE"] ?? string.Empty;
+
+            string connectionString = $"Server={server},{port};Database={database};Uid={user};Password={password};Encrypt=True;MultipleActiveResultSets=true;TrustServerCertificate={Certificate}";
+
+            services.AddDbContext<DataBaseService>(options =>
+            options.UseSqlServer(connectionString));
+
 
             return services;
         }

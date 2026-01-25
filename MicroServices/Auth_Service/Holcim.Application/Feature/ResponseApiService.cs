@@ -5,7 +5,7 @@ namespace Holcim.Application.Feature
 {
     public class ResponseApiService
     {
-        public static object Response(int Statuscode, object Data = null, string message = null)
+        public static object Response(int Statuscode, object? Data = null, string? message = null)
         {
             bool success = false;
 
@@ -17,7 +17,7 @@ namespace Holcim.Application.Feature
 
                 StatusCode = Statuscode,
                 Succes = success,
-                Message = message,
+                Message = message ?? string.Empty,
                 Data = Data
             };
             return result;

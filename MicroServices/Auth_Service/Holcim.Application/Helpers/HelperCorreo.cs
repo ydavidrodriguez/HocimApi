@@ -25,5 +25,15 @@ namespace Holcim.Application.Helpers
 
         }
 
+        public static string CreateOtpCode(int digits = 6)
+        {
+            if (digits <= 0)
+                digits = 6;
+
+            int max = (int)Math.Pow(10, digits);
+            int value = RandomNumberGenerator.GetInt32(0, max);
+            return value.ToString($"D{digits}");
+        }
+
     }
 }

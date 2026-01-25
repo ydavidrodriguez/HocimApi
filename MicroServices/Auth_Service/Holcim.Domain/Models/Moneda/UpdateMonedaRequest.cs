@@ -1,4 +1,6 @@
-﻿namespace Holcim.Domain.Models.Moneda
+﻿using System.Collections.Generic;
+
+namespace Holcim.Domain.Models.Moneda
 {
     public class UpdateMonedaRequest
     {
@@ -7,6 +9,7 @@
         public string Nombre { get; set; }
         public string? Descripcion { get; set; }
         public bool Estado { get; set; }
+        public List<ColumnaExtraDto>? ColumnasExtras { get; set; }
 
     }
 }

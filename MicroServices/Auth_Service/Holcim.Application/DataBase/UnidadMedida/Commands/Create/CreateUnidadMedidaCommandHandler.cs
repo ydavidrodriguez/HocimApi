@@ -16,28 +16,48 @@ namespace Holcim.Application.DataBase.UnidadMedida.Commands.Create
             _mapper = mapper;
         }
 
-        public async Task<object> Execute(CreateUnidadMedidaRequest createUnidadMedidaRequest)
+        public async Task<object> Execute(List<CreateUnidadMedidaRequest> createUnidadMedidaRequest)
         {
+            var duplicates = new List<CreateUnidadMedidaRequest>();
+            var created = new List<CreateUnidadMedidaRequest>();
 
-            if (_dataBaseService.UnidadMedida.Where(x => x.UdmCode == createUnidadMedidaRequest.UdmCode).FirstOrDefault() == null)
+            if (createUnidadMedidaRequest == null || !createUnidadMedidaRequest.Any())
+                return ResponseApiService.Response(StatusCodes.Status400BadRequest, string.Empty, "No hay datos para procesar");
+
+            foreach (var createUnidadMedida in createUnidadMedidaRequest)
             {
-                var Entitymapper = _mapper.Map<Domain.Entities.UnidadMedida.UnidadMedida>(createUnidadMedidaRequest);
+                if (_dataBaseService.UnidadMedida.Any(x => x.UdmCode == createUnidadMedida.UdmCode))
+                {
+                    duplicates.Add(createUnidadMedida);
+                    continue;
+                }
+
+                var Entitymapper = _mapper.Map<Domain.Entities.UnidadMedida.UnidadMedida>(createUnidadMedida);
                 Entitymapper.IdUnidadMedida = Guid.NewGuid();
+                Entitymapper.ColumnasExtras = createUnidadMedida.ColumnasExtras;
                 Entitymapper.Estado = true;
                 Entitymapper.FechaCreacion = DateTime.Now;
                 Entitymapper.FechaActulizacion = DateTime.Now;
                 _dataBaseService.UnidadMedida.Add(Entitymapper);
+                created.Add(createUnidadMedida);
+
+            }
+
+            if (created.Any())
                 await _dataBaseService.SaveAsync();
 
-                return ResponseApiService.Response(StatusCodes.Status201Created, createUnidadMedidaRequest);
-
-            }
-            else
+            var result = new
             {
-                return ResponseApiService.Response(StatusCodes.Status202Accepted, null, "Unidad Medida Ya Registrada");
-            }
+                Created = created,
+                Duplicates = duplicates
+            };
+
+            var message = duplicates.Any() ? "Algunas unidades de medida ya existían" : "Unidades de medida creadas correctamente";
+            var status = created.Any() ? StatusCodes.Status201Created : StatusCodes.Status202Accepted;
+
+            return ResponseApiService.Response(status, result, message);
 
         }
-
     }
+
 }

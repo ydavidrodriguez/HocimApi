@@ -29,6 +29,7 @@ namespace Holcim.Application.DataBase.Psc.Commands.Update
                      Entity.PscsNombre = UpdatePscRequest.PscsNombre;
                      Entity.CategoriaPscId = UpdatePscRequest.CategoriaPscId;
                      Entity.GrupoPscId = UpdatePscRequest.GrupoPscId;
+                     Entity.ColumnasExtras = UpdatePscRequest.ColumnasExtras;
                      Entity.Estado = UpdatePscRequest.Estado;
                      Entity.FechaActulizacion = DateTime.Now;
                      _dataBaseService.Pscs.Update(Entity);

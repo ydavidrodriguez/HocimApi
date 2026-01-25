@@ -35,6 +35,7 @@ namespace Holcim.Application.DataBase.Psc.Commands.Create
 
                 var entity = _mapper.Map<Domain.Entities.Pscs.Pscs>(req);
                 entity.IdPscs = Guid.NewGuid();
+                entity.ColumnasExtras = req.ColumnasExtras;
                 entity.Estado = true;
                 entity.FechaCreacion = DateTime.Now;
                 entity.FechaActulizacion = DateTime.Now;

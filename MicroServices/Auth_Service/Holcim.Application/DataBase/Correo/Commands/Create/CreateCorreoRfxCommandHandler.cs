@@ -14,29 +14,31 @@ namespace Holcim.Application.DataBase.Correo.Commands.Create
     {
         private readonly IDataBaseService _dataBaseService;
         private readonly IConfiguration _configuration;
+        private readonly ISecretsManagerService _secretsManagerService;
 
-        public CreateCorreoRfxCommandHandler(IConfiguration configuration, IDataBaseService dataBaseService)
+        public CreateCorreoRfxCommandHandler(IConfiguration configuration, IDataBaseService dataBaseService, ISecretsManagerService secretsManagerService)
         {
             _dataBaseService = dataBaseService;
             _configuration = configuration;
+            _secretsManagerService = secretsManagerService;
         }
         public async Task<object> Execute(List<string> usuariosRemitentes, string Asunto, string DescripcionCorreo,
          Dictionary<string, Dictionary<string, string>> parametrosPorUsuario)
         {
             var correo = _dataBaseService.Correo.First(x => x.Descripcion == DescripcionCorreo);
 
-            var sqsClient = new AmazonSQSClient(
-                _configuration["AWS:awsAccessKeyId"],
-                _configuration["AWS:awsSecretAccessKey"],
-                RegionEndpoint.EUWest1
-            );
+            // var awsAccessKeyId = await _secretsManagerService.GetSecretAsync("awsAccessKeyId");
+            // var awsSecretAccessKey = await _secretsManagerService.GetSecretAsync("awsSecretAccessKey");
+            // var awsQueeurlamazon = await _secretsManagerService.GetSecretAsync("awsQueeurlamazon");
 
-            string queueUrl = _configuration["AWS:queeurlamazon"];
+            var sqsClient = new AmazonSQSClient(RegionEndpoint.EUWest1);
+
+            string queueUrl = _configuration["AWS:quueurlAws"];
 
             foreach (var destinatario in usuariosRemitentes)
             {
                 if (!parametrosPorUsuario.ContainsKey(destinatario))
-                    continue; // O lanzar una excepción si es obligatorio
+                   continue; // O lanzar una excepción si es obligatorio
 
                 var parametros = parametrosPorUsuario[destinatario];
                 string htmlProcesado = ReplacePlaceholders(correo.Html.Replace("\"", "'"), parametros);
@@ -45,7 +47,7 @@ namespace Holcim.Application.DataBase.Correo.Commands.Create
                 {
                     Asunto = Asunto,
                     Destinatarios = new List<string> { destinatario },
-                    Body = htmlProcesado
+                    Body = ""
                 };
 
                 string mensajeJson = JsonConvert.SerializeObject(createEmailRequest);

@@ -32,7 +32,7 @@ namespace Holcim.Controllers
         }
         [HttpPost("PostCreatePais")]
         public async Task<IActionResult> PostCreatePais(
-        [FromServices] ICreatePaisCommandHandler CreatePaisCommandHandler, [FromBody] CreatePaisRequest createPaisRequest)
+        [FromServices] ICreatePaisCommandHandler CreatePaisCommandHandler, [FromBody] List<CreatePaisRequest> createPaisRequest)
         {
             return Ok(await CreatePaisCommandHandler.Execute(createPaisRequest));
 

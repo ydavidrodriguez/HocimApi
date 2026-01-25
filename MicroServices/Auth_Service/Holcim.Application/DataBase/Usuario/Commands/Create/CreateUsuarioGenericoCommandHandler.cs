@@ -2,6 +2,7 @@
 using Holcim.Application.Feature;
 using Holcim.Application.Helpers;
 using Holcim.Domain.Entities.Rol;
+using Holcim.Domain.Models.Usuario;
 using Microsoft.AspNetCore.Http;
 
 namespace Holcim.Application.DataBase.Usuario.Commands.Create
@@ -26,7 +27,8 @@ namespace Holcim.Application.DataBase.Usuario.Commands.Create
             var Entitymapper = _mapper.Map<Domain.Entities.Usuario.Usuario>(usuario);
             Entitymapper.IdUsuario = Guid.NewGuid();
             Entitymapper.Estado = true;
-            Entitymapper.Contrasena = HelperCorreo.CreatePassword(10);
+            var plainPassword = HelperCorreo.CreatePassword(10);
+            Entitymapper.Contrasena = HelperPassword.Hash(plainPassword);
             Entitymapper.FechaCreacion = DateTime.Now;
             Entitymapper.FechaActulizacion = DateTime.Now;
             Entitymapper.PrimerIngreso = true;
@@ -46,7 +48,13 @@ namespace Holcim.Application.DataBase.Usuario.Commands.Create
 
             }
 
-            return ResponseApiService.Response(StatusCodes.Status201Created, Entitymapper);
+            var response = new UsuarioCreatedResponse
+            {
+                IdUsuario = Entitymapper.IdUsuario,
+                Contrasena = plainPassword
+            };
+
+            return ResponseApiService.Response(StatusCodes.Status201Created, response);
 
         }
 

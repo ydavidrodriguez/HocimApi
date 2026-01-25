@@ -61,6 +61,7 @@ namespace Holcim.Persistence.Database
         public DbSet<Idioma> Idioma { get; set; }
         public DbSet<Region> Region { get; set; }
         public DbSet<UsuarioToken> UsuarioToken { get; set; }
+        public DbSet<UsuarioOtp> UsuarioOtp { get; set; }
         public DbSet<TipoUsuario> TipoUsuario { get; set; }
         public DbSet<UnidadMedida> UnidadMedida { get; set; }
         public DbSet<Pscs> Pscs { get; set; }
@@ -129,6 +130,7 @@ namespace Holcim.Persistence.Database
             new IdiomaConfiguration(modelBuilder.Entity<Idioma>());
             new RegionConfiguration(modelBuilder.Entity<Region>());
             new UsuarioTokenConfiguration(modelBuilder.Entity<UsuarioToken>());
+            new UsuarioOtpConfiguration(modelBuilder.Entity<UsuarioOtp>());
             new TipoUsuarioConfiguration(modelBuilder.Entity<TipoUsuario>());
             new UnidadMedidaConfiguration(modelBuilder.Entity<UnidadMedida>());
             new PscConfiguration(modelBuilder.Entity<Pscs>());

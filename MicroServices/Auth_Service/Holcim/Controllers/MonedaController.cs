@@ -17,7 +17,7 @@ namespace Holcim.Controllers
         public async Task<IActionResult> GetListMonedaAll(
         [FromServices] IListMonedaCommandHandler ListMonedaCommandHandler, [FromQuery] string? Nombre, [FromQuery] string? codigo)
         {
-            return Ok(await ListMonedaCommandHandler.Execute(Nombre, codigo));
+            return Ok(await ListMonedaCommandHandler.Execute(Nombre, codigo ?? string.Empty));
         }
 
         [HttpPost("PostCreateMoneda")]

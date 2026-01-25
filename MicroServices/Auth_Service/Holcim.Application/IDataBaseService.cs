@@ -53,6 +53,7 @@ namespace Holcim.Application
         public DbSet<Idioma> Idioma { get; set; }
         public DbSet<Region> Region { get; set; }
         public DbSet<UsuarioToken> UsuarioToken { get; set; }
+        public DbSet<UsuarioOtp> UsuarioOtp { get; set; }
         public DbSet<TipoUsuario> TipoUsuario { get; set; }
         public DbSet<UnidadMedida> UnidadMedida { get; set; }
         public DbSet<Pscs> Pscs { get; set; }

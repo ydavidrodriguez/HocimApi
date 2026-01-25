@@ -1,6 +1,7 @@
 ﻿using Holcim.Application.DataBase.Usuario.Commands.Create;
 using Holcim.Application.DataBase.Usuario.Commands.List;
 using Holcim.Application.DataBase.Usuario.Commands.Update;
+using Holcim.Application.DataBase.Usuario.Commands.VerifyOtp;
 using Holcim.Application.Exception;
 using Holcim.Application.External.GettokenJwt;
 using Holcim.Application.Feature;
@@ -31,14 +32,14 @@ namespace Holcim.Controllers
         }
 
         [HttpGet("GetListUsuarioAll")]
-        public async Task<IActionResult> GetListUsuarioAll(
+                public IActionResult GetListUsuarioAll(
           [FromServices] IListUsuarioCommandHandler ListUsuarioCommandHandler, [FromQuery] string? Nombre, [FromQuery] string? Correo)
         {
             return Ok(ListUsuarioCommandHandler.Execute(Nombre, Correo));
         }
 
         [HttpGet("GetUsuarioById")]
-        public async Task<IActionResult> GetUsuarioById(
+                public IActionResult GetUsuarioById(
           [FromServices] IListUsuarioByIdCommandHandler ListUsuarioByIdCommandHandler, [FromQuery] Guid IdUsuario)
         {
             return Ok(ListUsuarioByIdCommandHandler.Execute(IdUsuario));
@@ -52,10 +53,18 @@ namespace Holcim.Controllers
         }
         [AllowAnonymous]
         [HttpPost("GetToken")]
-        public async Task<IActionResult> GetToken([FromBody] LoginUsuarioRequest LoginUsuarioRequest,
+        public IActionResult GetToken([FromBody] LoginUsuarioRequest LoginUsuarioRequest,
         [FromServices] IGettokenJwt GettokenJwt)
         {
             return Ok(GettokenJwt.Execute(LoginUsuarioRequest));
+        }
+
+        [AllowAnonymous]
+        [HttpPost("PostVerifyOtp")]
+        public async Task<IActionResult> PostVerifyOtp(
+        [FromServices] IVerifyOtpCommandHandler verifyOtpCommandHandler, [FromBody] VerifyOtpRequest request)
+        {
+            return Ok(await verifyOtpCommandHandler.Execute(request));
         }
         [HttpGet("GetListUsuarioToken")]
         public async Task<IActionResult> GetListUsuarioToken(
@@ -66,7 +75,7 @@ namespace Holcim.Controllers
             else { return StatusCode(StatusCodes.Status202Accepted, ResponseApiService.Response(StatusCodes.Status202Accepted, null, "Usuario  No Valido")); }
         }
         [HttpGet("GetForgetPasswordByEmail")]
-        public async Task<IActionResult> GetForgetPasswordByEmail(
+        public IActionResult GetForgetPasswordByEmail(
        [FromServices] ICreateEmailForgetPasswordByEmail createEmailForgetPasswordByEmail, [FromQuery] string Correo)
         {
             return Ok(createEmailForgetPasswordByEmail.Execute(Correo));

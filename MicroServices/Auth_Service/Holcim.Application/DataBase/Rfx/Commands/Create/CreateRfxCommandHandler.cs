@@ -59,10 +59,10 @@ namespace Holcim.Application.DataBase.Rfx.Commands.Create
 
             if (aprobador != null && aprobador.Value)
             {
-               Holcim.Domain.Entities.Estado.Estado  estadoAprobadoEntity = _dataBaseService?.Estado
-                    ?.Include(x => x.TipoEstado)
-                    .Where(x => x.TipoEstado.Descripcion == EnumDomain.rfx.GetEnumMemberValue() && x.Nombre == EnumDomain.RfxAprobado.GetEnumMemberValue())
-                    .FirstOrDefault();
+                Holcim.Domain.Entities.Estado.Estado estadoAprobadoEntity = _dataBaseService?.Estado
+                     ?.Include(x => x.TipoEstado)
+                     .Where(x => x.TipoEstado.Descripcion == EnumDomain.rfx.GetEnumMemberValue() && x.Nombre == EnumDomain.RfxAprobado.GetEnumMemberValue())
+                     .FirstOrDefault();
 
                 if (estadoAprobadoEntity != null)
                 {
@@ -74,7 +74,10 @@ namespace Holcim.Application.DataBase.Rfx.Commands.Create
 
             _dataBaseService.Rfx.Add(entity);
 
-            await _createRfxPaisCommandHandler.Execute(createRfxRequest.PaisId, entity.IdRfx);
+            if (createRfxRequest.PaisId != null && createRfxRequest.PaisId.Any())
+            {
+                await _createRfxPaisCommandHandler.Execute(createRfxRequest.PaisId, entity.IdRfx);
+            }
             await _createItemCommandHandler.Execute(createRfxRequest.CreateItemRequest, entity.IdRfx, createRfxRequest.CrearPregunta);
             await _createSobreCommandHandler.Execute(createRfxRequest.ArchivoSobre, entity.IdRfx);
             await _createTrazabilidadCommandHandler.Execute(createRfxRequest, entity.IdRfx);
@@ -85,56 +88,42 @@ namespace Holcim.Application.DataBase.Rfx.Commands.Create
             if (createRfxRequest.ProveedoresInvitados != null && aprobadoEstadoEntity != null &&
                 createRfxRequest.EstadoId == aprobadoEstadoEntity.IdEstado)
             {
-                //TimeZoneInfo zonaOrigen = TimeZoneInfo.FindSystemTimeZoneById("Tokyo Standard Time");
-
-                //TimeZoneInfo zonaDestino = TimeZoneInfo.Utc;
-
-                //// Convertir la fecha de Japón a UTC
-                //DateTime fechaDestino = TimeZoneInfo.ConvertTime(entity.FechaFinal, zonaOrigen, zonaDestino);
-
-                var dbUser = _dataBaseService.Usuario.AsQueryable();
-                var usuarioCreacion = await dbUser.Where(a => a.IdUsuario == createRfxRequest.UsuarioCreacion).FirstOrDefaultAsync();
+                
+                var usuarioCreacion = await _dataBaseService.Usuario.Where(a => a.IdUsuario == createRfxRequest.UsuarioCreacion).FirstOrDefaultAsync();
                 var dbZona = _dataBaseService.ZonaHoraria.AsQueryable();
                 var replacementsPorProveedor = new Dictionary<string, Dictionary<string, string>>();
 
-                //foreach(var provider in createRfxRequest.ProveedoresInvitados)
-                //{
-                //    var dbProveedor =  _dataBaseService.Proveedor.AsQueryable();
-                //    var dataProveedor = await _dataBaseService.Proveedor.Where(a => a.Correo == provider).FirstOrDefaultAsync();
-                //    var zonaHoraria = await dbZona.Where(a => a.IdZonaHoraria == dataProveedor.ZonaHorariaId).FirstOrDefaultAsync();
-                //    var userProveedor = await dbUser.Where(a => a.IdUsuario == dataProveedor.UsuarioId).FirstOrDefaultAsync();
+                foreach (var provider in createRfxRequest.ProveedoresInvitados)
+                {
+                    var dbProveedor = await _dataBaseService.Proveedor.FirstOrDefaultAsync(a => a.Correo == provider);
+                    if (dbProveedor == null)
+                    {
+                        await _createInvitadosCommandHandler.Execute(createRfxRequest, entity.IdRfx, aprobadoEstadoEntity.IdEstado);
+                    }
 
+                    var dataProveedor = await _dataBaseService.Proveedor.FirstOrDefaultAsync(a => a.Correo == provider);
+                  
+                    var replacements = new Dictionary<string, string>
+                   {
+                       { "{0}", dataProveedor.NombreEmpresa.ToString() },
+                       { "{1}", entity.Nombre },
+                       { "{2}", entity.FechaFinal.ToString() + dbZona.FirstOrDefault().Nombre.ToString()},
+                       { "{3}", usuarioCreacion.Nombre.ToString() },
+                       { "{4}", usuarioCreacion.Correo.ToString() }
+                   };
+                    replacementsPorProveedor.Add(provider, replacements);
+                }
 
-                //    var replacements = new Dictionary<string, string>
-                //    {
-                //        { "{0}", userProveedor.Nombre.ToString() },
-                //        { "{1}", entity.Nombre },
-                //        { "{2}", entity.FechaFinal.ToString() + zonaHoraria.Nombre.ToString()},
-                //        { "{3}", usuarioCreacion.Nombre.ToString() },
-                //        { "{4}", usuarioCreacion.Correo.ToString() }
-                //    };
-                //    replacementsPorProveedor.Add(provider, replacements);
-                //}
-
-
-
-                //await _createCorreoRfxCommandHandler.Execute(createRfxRequest.ProveedoresInvitados, "Invitacion Holcim Rfx",
-                //    EnumDomain.InvitacionRfxProveedores.GetEnumMemberValue().ToString(), replacementsPorProveedor);
+                await _createCorreoRfxCommandHandler.Execute(createRfxRequest.ProveedoresInvitados, "Invitacion Holcim Rfx",
+                   EnumDomain.InvitacionRfxProveedores.GetEnumMemberValue().ToString(), replacementsPorProveedor);
             }
 
-              var estadoEntity = _dataBaseService.Estado.Include(x => x.TipoEstado)
-                  .Where(x => x.TipoEstado.Descripcion == EnumDomain.TipoEstadoProveedorRfx.GetEnumMemberValue() &&
-                   x.Nombre == EnumDomain.PendienteRespuesta.GetEnumMemberValue()).FirstOrDefault();
+            var estadoEntity = _dataBaseService.Estado.Include(x => x.TipoEstado)
+                .Where(x => x.TipoEstado.Descripcion == EnumDomain.TipoEstadoProveedorRfx.GetEnumMemberValue() &&
+                 x.Nombre == EnumDomain.PendienteRespuesta.GetEnumMemberValue()).FirstOrDefault();
 
-              Guid estado = estadoEntity != null ? estadoEntity.IdEstado : Guid.Empty;
-
-            await _createInvitadosCommandHandler.Execute(createRfxRequest, entity.IdRfx, estado);
-
-
+            Guid estado = estadoEntity != null ? estadoEntity.IdEstado : Guid.Empty;
             createRfxRequest.IdRfx = entity.IdRfx;
-
-
-
             return ResponseApiService.Response(StatusCodes.Status201Created, createRfxRequest);
 
         }

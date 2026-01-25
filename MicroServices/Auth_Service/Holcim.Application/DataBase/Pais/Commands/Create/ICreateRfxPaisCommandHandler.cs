@@ -2,6 +2,6 @@
 {
     public interface ICreateRfxPaisCommandHandler
     {
-        Task<object> Execute(IEnumerable<Guid> paises, Guid rfxId);
+        Task<object> Execute(IEnumerable<Guid>? paises, Guid rfxId);
     }
 }

@@ -33,7 +33,7 @@ namespace Holcim.Application.Feature
 
         public T GetById(int id)
         {
-            return _dbSet.Find(id); throw new NotImplementedException();
+            return _dbSet.Find(id)!;
         }
 
         public void Update(T entity)

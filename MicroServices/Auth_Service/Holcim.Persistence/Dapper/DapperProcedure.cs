@@ -61,12 +61,12 @@ namespace Holcim.Persistence.Dapper
         }
         public string Conexion()
         {
-            string server = _configuration["ConnectionStrings:DB_SERVER"];
-            string port = _configuration["ConnectionStrings:DB_PORT"];
-            string database = _configuration["ConnectionStrings:DB_NAME"];
-            string user = _configuration["ConnectionStrings:DB_USER"];
-            string password = _configuration["ConnectionStrings:DB_PASSWORD"];
-            string Certificate = _configuration["ConnectionStrings:DB_CERIFICATE"];
+            string server = _configuration["ConnectionStrings:DB_SERVER"] ?? string.Empty;
+            string port = _configuration["ConnectionStrings:DB_PORT"] ?? string.Empty;
+            string database = _configuration["ConnectionStrings:DB_NAME"] ?? string.Empty;
+            string user = _configuration["ConnectionStrings:DB_USER"] ?? string.Empty;
+            string password = _configuration["ConnectionStrings:DB_PASSWORD"] ?? string.Empty;
+            string Certificate = _configuration["ConnectionStrings:DB_CERIFICATE"] ?? string.Empty;
 
             string connectionString = $"Server={server},{port};Database={database};Uid={user};Password={password};Trusted_Connection=false;MultipleActiveResultSets=true;TrustServerCertificate={Certificate}";
 
