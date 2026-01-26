@@ -66,7 +66,7 @@ namespace Holcim.External.GetTokenJwtService
 
                 _dataBaseService.UsuarioOtp.Add(usuarioOtp);
 
-                _dataBaseService.SaveAsync();
+                _dataBaseService.SaveAsync().GetAwaiter().GetResult();
 
                 var replacements = new Dictionary<string, string>
                 {
@@ -74,11 +74,19 @@ namespace Holcim.External.GetTokenJwtService
                     { "{NOMBRE}", usuario.Nombre ?? string.Empty }
                 };
 
-                _createCorreoCommandHandler.Execute(
-                    new List<string> { usuario.Correo },
-                    "Código de verificación",
-                    "2FA",
-                    replacements);
+                var correoEnviado = true;
+                try
+                {
+                    _createCorreoCommandHandler.Execute(
+                        new List<string> { usuario.Correo },
+                        "Código de verificación",
+                        "2FA",
+                        replacements);
+                }
+                catch
+                {
+                    correoEnviado = false;
+                }
 
                 var pendingResponse = new TwoFactorPendingResponse
                 {
@@ -87,7 +95,11 @@ namespace Holcim.External.GetTokenJwtService
                     ExpiraEn = expiresAt
                 };
 
-                return ResponseApiService.Response(StatusCodes.Status201Created, pendingResponse, "Código enviado");
+                var mensaje = correoEnviado
+                    ? "Código enviado"
+                    : "Código generado, pero hubo un error al enviar el correo. Intenta nuevamente.";
+
+                return ResponseApiService.Response(StatusCodes.Status201Created, pendingResponse, mensaje);
 
             }
             else
