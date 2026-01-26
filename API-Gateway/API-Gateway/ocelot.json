@@ -1,12 +1,12 @@
   {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/auth/{everything}",
-      "DownstreamScheme": "https",
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "apiholcimqa.online",
-          "Port": 443
+          "Host": "holcim-auth-service",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/auth/{everything}",
@@ -19,12 +19,12 @@
       "SwaggerKey": "holcim-auth-service"
     },
     {
-      "DownstreamPathTemplate": "/task/{everything}",
-      "DownstreamScheme": "https",
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "apiholcimqa.online",
-          "Port": 443
+          "Host": "holcim-task-send-service",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/task/{everything}",
@@ -37,12 +37,12 @@
       "SwaggerKey": "holcim-task-send-service"
     },
     {
-      "DownstreamPathTemplate": "/provider/{everything}",
-      "DownstreamScheme": "https",
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "apiholcimqa.online",
-          "Port": 443
+          "Host": "holcim-provider-service",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/provider/{everything}",
@@ -55,12 +55,12 @@
       "SwaggerKey": "holcim-provider-service"
     },
     {
-      "DownstreamPathTemplate": "/documents/{everything}",
-      "DownstreamScheme": "https",
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "apiholcimqa.online",
-          "Port": 443
+          "Host": "holcim-documents-service",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/documents/{everything}",
@@ -73,12 +73,12 @@
       "SwaggerKey": "holcim-documents-service"
     },
     {
-      "DownstreamPathTemplate": "/auction/{everything}",
-      "DownstreamScheme": "https",
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "apiholcimqa.online",
-          "Port": 443
+          "Host": "holcim-auction-service",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/auction/{everything}",
@@ -91,12 +91,12 @@
       "SwaggerKey": "holcim-auction-service"
     },
     {
-      "DownstreamPathTemplate": "/auction-socket/{everything}",
-      "DownstreamScheme": "wss",
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "ws",
       "DownstreamHostAndPorts": [
         {
-          "Host": "apiholcimqa.online",
-          "Port": 443
+          "Host": "holcim-socket-service",
+          "Port": 3000
         }
       ],
       "UpstreamPathTemplate": "/auction-socket/{everything}",
@@ -108,12 +108,12 @@
       ]
     },
     {
-      "DownstreamPathTemplate": "/auction-real-time/{everything}",
-      "DownstreamScheme": "https",
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "apiholcimqa.online",
-          "Port": 443
+          "Host": "holcim-socket-service",
+          "Port": 3000
         }
       ],
       "UpstreamPathTemplate": "/auction-real-time/{everything}",
@@ -125,12 +125,12 @@
       ]
     },
     {
-      "DownstreamPathTemplate": "/contracts/{everything}",
-      "DownstreamScheme": "https",
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "apiholcimqa.online",
-          "Port": 443
+          "Host": "holcim-contracts-service",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/contracts/{everything}",
@@ -143,12 +143,12 @@
       "SwaggerKey": "holcim-contracts-service"
     },
     {
-      "DownstreamPathTemplate": "/trasnlator/{everything}",
-      "DownstreamScheme": "https",
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "apiholcimqa.online",
-          "Port": 443
+          "Host": "holcim-trasnlator-service",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/trasnlator/{everything}",
@@ -168,7 +168,7 @@
         {
           "Name": "Auth Micro Service",
           "Version": "v1",
-          "Url": "https://apiholcimqa.online/auth/swagger/v1/swagger.json"
+          "Url": "http://holcim-auth-service:8080/swagger/v1/swagger.json"
         }
       ]
     },
@@ -178,7 +178,7 @@
         {
           "Name": "TaskSend Micro Service",
           "Version": "v1",
-          "Url": "https://apiholcimqa.online/task/swagger/v1/swagger.json"
+          "Url": "http://holcim-task-send-service:8080/swagger/v1/swagger.json"
         }
       ]
     },
@@ -188,7 +188,7 @@
         {
           "Name": "provider Micro Service",
           "Version": "v1",
-          "Url": "https://apiholcimqa.online/provider/swagger/v1/swagger.json"
+          "Url": "http://holcim-provider-service:8080/swagger/v1/swagger.json"
         }
       ]
     },
@@ -198,7 +198,7 @@
         {
           "Name": "documents Micro Service",
           "Version": "v1",
-          "Url": "https://apiholcimqa.online/documents/swagger/v1/swagger.json"
+          "Url": "http://holcim-documents-service:8080/swagger/v1/swagger.json"
         }
       ]
     },
@@ -208,7 +208,7 @@
         {
           "Name": "contracts Micro Service",
           "Version": "v1",
-          "Url": "https://apiholcimqa.online/contracts/swagger/v1/swagger.json"
+          "Url": "http://holcim-contracts-service:8080/swagger/v1/swagger.json"
         }
       ]
     },
@@ -218,7 +218,7 @@
         {
           "Name": "auction Micro Service",
           "Version": "v1",
-          "Url": "https://apiholcimqa.online/auction/swagger/v1/swagger.json"
+          "Url": "http://holcim-auction-service:8080/swagger/v1/swagger.json"
         }
       ]
     },
@@ -228,7 +228,7 @@
         {
           "Name": "trasnlator Micro Service",
           "Version": "v1",
-          "Url": "https://apiholcimqa.online/trasnlator/swagger/v1/swagger.json"
+          "Url": "http://holcim-trasnlator-service:8080/swagger/v1/swagger.json"
         }
       ]
     }
