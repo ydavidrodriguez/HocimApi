@@ -4,6 +4,9 @@ import { ConfigMssqlDto } from "./config/config-mssql.dto";
 export class DatabaseService {
   private pool: mssql.ConnectionPool;
   constructor(private readonly credentials: ConfigMssqlDto) {
+    const encrypt =
+      String(process.env.DB_ENCRYPT || "").toLowerCase() === "true" ||
+      process.env.NODE_ENV === "production";
     const config: mssql.config = {
       user: credentials.user,
       password: credentials.password,
@@ -11,7 +14,7 @@ export class DatabaseService {
       database: credentials.database,
       port: credentials.port,
       options: {
-        encrypt: false, // true para Azure; false para bases de datos locales
+        encrypt, // true para Azure; false para bases de datos locales
         trustServerCertificate: true, // solo si es necesario
       },
     };

@@ -147,6 +147,7 @@ services:
     container_name: holcim-socket-service
     environment:
       NODE_ENV: development
+      DB_ENCRYPT: "true"
       PORT: 3000
       CORS_ORIGIN: "*"
       DB_USER: holcim

@@ -31,7 +31,18 @@ namespace Holcim.External
             var secretManager = sp.GetRequiredService<ISecretsManagerService>();
 
             string BDServer = secretManager.GetSecretAsync("esoursing/database").Result ?? string.Empty;
-            _ = string.IsNullOrWhiteSpace(BDServer) ? null : JsonSerializer.Deserialize<DbSecrets>(BDServer);
+            DbSecrets? databaseSecret = null;
+            if (!string.IsNullOrWhiteSpace(BDServer))
+            {
+                try
+                {
+                    databaseSecret = JsonSerializer.Deserialize<DbSecrets>(BDServer);
+                }
+                catch (JsonException)
+                {
+                    databaseSecret = null;
+                }
+            }
             // string port = databaseSecret.DBPort;
             // string database = databaseSecret.DBName;
             // string user = databaseSecret.User;
