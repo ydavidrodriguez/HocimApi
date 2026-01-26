@@ -1,9 +1,13 @@
+using Holcim.Persistence.Database;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace Holcim.Persistence.Migrations
 {
+    [DbContext(typeof(DataBaseService))]
+    [Migration("20260125120000_columnasextrasjson")]
     public partial class columnasextrasjson : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

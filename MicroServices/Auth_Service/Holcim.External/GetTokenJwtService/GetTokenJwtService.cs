@@ -34,7 +34,28 @@ namespace Holcim.External.GetTokenJwtService
             var usuario = _dataBaseService.Usuario.Include(x=> x.Idioma)
                 .Where(x => x.Correo == loginUsuarioRequest.Correo && x.Estado == true).FirstOrDefault();
 
-            if (usuario != null && HelperPassword.Verify(loginUsuarioRequest.Contrasena, usuario.Contrasena))
+            var contrasenaValida = false;
+
+            if (usuario != null)
+            {
+                if (HelperPassword.IsHashed(usuario.Contrasena))
+                {
+                    contrasenaValida = HelperPassword.Verify(loginUsuarioRequest.Contrasena, usuario.Contrasena);
+                }
+                else
+                {
+                    contrasenaValida = string.Equals(loginUsuarioRequest.Contrasena, usuario.Contrasena);
+
+                    if (contrasenaValida)
+                    {
+                        usuario.Contrasena = HelperPassword.Hash(loginUsuarioRequest.Contrasena);
+                        _dataBaseService.Usuario.Update(usuario);
+                        _dataBaseService.SaveAsync().GetAwaiter().GetResult();
+                    }
+                }
+            }
+
+            if (usuario != null && contrasenaValida)
             {
                 usuario.UltimaConexion = DateTime.Now;
                 _dataBaseService.Usuario.Update(usuario);

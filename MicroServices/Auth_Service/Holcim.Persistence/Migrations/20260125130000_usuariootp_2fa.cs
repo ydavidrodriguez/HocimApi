@@ -1,10 +1,14 @@
 using System;
+using Holcim.Persistence.Database;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace Holcim.Persistence.Migrations
 {
+    [DbContext(typeof(DataBaseService))]
+    [Migration("20260125130000_usuariootp_2fa")]
     public partial class usuariootp_2fa : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

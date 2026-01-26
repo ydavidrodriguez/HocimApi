@@ -1,9 +1,13 @@
+using Holcim.Persistence.Database;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace Holcim.Persistence.Migrations
 {
+    [DbContext(typeof(DataBaseService))]
+    [Migration("20260125123000_rfx_sitio_direccion")]
     public partial class rfx_sitio_direccion : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
