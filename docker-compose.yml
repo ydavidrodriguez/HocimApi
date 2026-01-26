@@ -12,6 +12,8 @@ services:
     restart: always
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
+    networks:
+      - holcim-net
   auth-service:
     build:
       context: ./MicroServices/Auth_Service
@@ -27,6 +29,8 @@ services:
       ConnectionStrings__DB_CERIFICATE: "false"
       ASPNETCORE_HTTP_PORTS: "8080"
       ASPNETCORE_ENVIRONMENT: "Development"
+    networks:
+      - holcim-net
   documents-service:
     build:
       context: ./MicroServices/Documents_Service
@@ -43,6 +47,8 @@ services:
       ASPNETCORE_HTTP_PORTS: "8080"
       ASPNETCORE_ENVIRONMENT: "Development"
       Servicios__ApiGatwey: "https://dev-holcim-api.nxs-dev.com.co"
+    networks:
+      - holcim-net
   task-send-service:
     build:
       context: ./MicroServices/TaskSend_Service
@@ -58,6 +64,8 @@ services:
       ConnectionStrings__DB_CERIFICATE: "false"
       ASPNETCORE_HTTP_PORTS: "8080"
       ASPNETCORE_ENVIRONMENT: "Development"
+    networks:
+      - holcim-net
   provider-service:
     build:
       context: ./MicroServices/Provider_Service
@@ -73,6 +81,8 @@ services:
       ConnectionStrings__DB_CERIFICATE: "false"
       ASPNETCORE_HTTP_PORTS: "8080"
       ASPNETCORE_ENVIRONMENT: "Development"
+    networks:
+      - holcim-net
   contracts-service:
     build:
       context: ./MicroServices/Contracts_Service
@@ -89,6 +99,8 @@ services:
       ConnectionStrings__DB_CERIFICATE: "false"
       ASPNETCORE_HTTP_PORTS: "8080"
       ASPNETCORE_ENVIRONMENT: "Development"
+    networks:
+      - holcim-net
   auction-service:
     build:
       context: ./MicroServices/AuctionService
@@ -105,6 +117,8 @@ services:
       ASPNETCORE_HTTP_PORTS: "8080"
       ASPNETCORE_ENVIRONMENT: "Development"
       Servicios__ApiGatwey: "https://dev-holcim-api.nxs-dev.com.co"
+    networks:
+      - holcim-net
   translator-service:
     build:
       context: ./MicroServices/Trasnlator_Service
@@ -123,6 +137,8 @@ services:
       Servicios__ApiGatwey: "https://dev-holcim-api.nxs-dev.com.co"
       AWS__awsAccessKeyId: "AKIA2NK3YLNBNHPTKNOD"
       AWS__awsSecretAccessKey: "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"
+    networks:
+      - holcim-net
   socket-service:
     build:
       context: ./MicroServices/Socket_Service
@@ -144,6 +160,8 @@ services:
       EP_ACTIVATE_AUCTION : /auction/api/Subasta/UpdateFechaReanudarSubasta
       EP_END_AUCTION: /auction/api/Subasta/putActualizarEstadoSubasta 
       DB_DATABASE: HolcimDev
+    networks:
+      - holcim-net
   nginx:
     image: nginx:latest
     container_name: holcim-nginx
@@ -156,5 +174,7 @@ services:
     depends_on:
       - gateway-service
     restart: always
+    networks:
+      - holcim-net
    
 
