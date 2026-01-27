@@ -906,9 +906,6 @@ namespace Holcim.Persistence.Migrations
                     b.Property<bool>("Prueba")
                         .HasColumnType("bit");
 
-                    b.Property<Guid>("TipoRfxId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("UsuarioCreacion")
                         .HasColumnType("uniqueidentifier");
 
@@ -920,8 +917,6 @@ namespace Holcim.Persistence.Migrations
                     b.HasIndex("EstadoId");
 
                     b.HasIndex("MonedaId");
-
-                    b.HasIndex("TipoRfxId");
 
                     b.ToTable("Rfx");
                 });
@@ -1811,17 +1806,9 @@ namespace Holcim.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Holcim.Domain.Entities.TipoRfx.TipoRfx", "TipoRfx")
-                        .WithMany()
-                        .HasForeignKey("TipoRfxId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Estado");
 
                     b.Navigation("Moneda");
-
-                    b.Navigation("TipoRfx");
                 });
 
             modelBuilder.Entity("Holcim.Domain.Entities.Rfx.RfxItem", b =>

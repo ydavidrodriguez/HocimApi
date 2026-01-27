@@ -76,7 +76,6 @@ namespace Holcim.Application.DataBase.Rfx.Commands.Update
                 rfx.MonedaId = updateRfxRequest.MonedaId;
                 rfx.ValorReferencia = updateRfxRequest.ValorReferencia;
                 rfx.Nombre = updateRfxRequest.Nombre;
-                rfx.TipoRfxId = updateRfxRequest.TipoRfxId;
 
                 _dataBaseService.Rfx.Update(rfx);
 

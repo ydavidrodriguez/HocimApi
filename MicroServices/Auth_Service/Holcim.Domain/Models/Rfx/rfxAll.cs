@@ -1,6 +1,4 @@
 ﻿using Holcim.Domain.Entities.Estado;
-using Holcim.Domain.Entities.TipoRfx;
-
 namespace Holcim.Domain.Models.Rfx
 {
     public class rfxAll
@@ -8,8 +6,6 @@ namespace Holcim.Domain.Models.Rfx
         public Guid IdRfx { get; set; }
         public string? Nombre { get; set; }
         public string? Detalle { get; set; }
-        public TipoRfx TipoRfx { get; set; }
-        public Guid TipoRfxId { get; set; }
         public DateTime FechaInicial { get; set; }
         public DateTime FechaFinal { get; set; }
         public Estado Estado { get; set; }

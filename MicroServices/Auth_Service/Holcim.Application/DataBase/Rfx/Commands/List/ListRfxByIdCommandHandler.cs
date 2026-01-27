@@ -22,9 +22,8 @@ namespace Holcim.Application.DataBase.Rfx.Commands.List
 
         public async Task<object> Execute(Guid Id)
         {
-            Domain.Entities.Rfx.Rfx RfxEntity = _dataBaseService.Rfx
-                 .Include(x => x.TipoRfx)
-                 .Include(x => x.Estado)
+              Domain.Entities.Rfx.Rfx RfxEntity = _dataBaseService.Rfx
+                  .Include(x => x.Estado)
                  .Include(x => x.Moneda)
                  .Where(x => x.IdRfx == Id).FirstOrDefault();
 

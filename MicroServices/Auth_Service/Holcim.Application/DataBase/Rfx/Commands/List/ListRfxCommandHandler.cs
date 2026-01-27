@@ -22,7 +22,6 @@ namespace Holcim.Application.DataBase.Rfx.Commands.List
             var EstadosPrueba = new[] { "Borrador", "Plantilla", "Prueba" };
 
             var listrfx = _dataBaseService.Rfx
-                     .Include(x => x.TipoRfx)
                      .Include(x => x.Estado)
                      .Include(x => x.Moneda)
                      .Where(x =>
@@ -51,8 +50,6 @@ namespace Holcim.Application.DataBase.Rfx.Commands.List
                          MonedaId = x.MonedaId,
                          Nombre = x.Nombre,
                          Prueba = x.Prueba,
-                         TipoRfx = x.TipoRfx,
-                         TipoRfxId = x.TipoRfxId,
                          UsuarioCreacion = x.UsuarioCreacion,
                          UsuarioCreacionNombre = _dataBaseService.Usuario.Where(c => c.IdUsuario == x.UsuarioCreacion).FirstOrDefault().Nombre + " " + _dataBaseService.Usuario.Where(c => c.IdUsuario == x.UsuarioCreacion).FirstOrDefault().Apellido,
                          ValorReferencia = x.ValorReferencia,

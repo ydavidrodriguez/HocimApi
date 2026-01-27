@@ -10,7 +10,6 @@ namespace Holcim.Domain.Models.Rfx
         public string? Detalle { get; set; }
         public List<UpdateItemRequest> UpdateItemRequest { get; set; }
         public List<CrearPregunta>? CrearPregunta { get; set; }
-        public Guid TipoRfxId { get; set; }
         public DateTime FechaInicial { get; set; }
         public DateTime FechaFinal { get; set; }
         public List<Guid>? PaisId { get; set; }
