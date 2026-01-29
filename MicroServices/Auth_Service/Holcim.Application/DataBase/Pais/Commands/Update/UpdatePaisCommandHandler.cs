@@ -28,6 +28,7 @@ namespace Holcim.Application.DataBase.Pais.Commands.Update
                     Entity.Indicativo = updatePaisRequest.Indicativo;
                     Entity.Estado = updatePaisRequest.Estado;
                     Entity.RegionId = updatePaisRequest.RegionId;
+                    Entity.ColumnasExtras = updatePaisRequest.ColumnasExtras;
                     Entity.FechaActulizacion = DateTime.Now;
                     _dataBaseService.Pais.Update(Entity);
                     await _dataBaseService.SaveAsync();

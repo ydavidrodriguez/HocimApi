@@ -37,6 +37,7 @@ namespace Holcim.Application.DataBase.Pais.Commands.List
                  FechaActulizacion = p.FechaActulizacion,
                  FechaCreacion = p.FechaCreacion,
                  Indicativo = p.Indicativo,
+                 ColumnasExtras = p.ColumnasExtras,
                  RegionId = p.RegionId,
                  TipoPaisId = p.TipoPaisId,
                  Region = p.Region,

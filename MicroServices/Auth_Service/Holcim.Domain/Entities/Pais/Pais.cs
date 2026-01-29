@@ -1,4 +1,7 @@
-﻿namespace Holcim.Domain.Entities.Pais
+﻿using Holcim.Domain.Models.Moneda;
+using System.Collections.Generic;
+
+namespace Holcim.Domain.Entities.Pais
 {
     public class Pais
     {
@@ -6,6 +9,7 @@
         public string? Nombre { get; set; }
         public bool Estado { get; set; }
         public string? Indicativo { get; set; }
+        public List<ColumnaExtraDto>? ColumnasExtras { get; set; }
         public Region.Region Region { get; set; }
         public Guid RegionId { get; set; }
         public TipoPais.TipoPais TipoPais { get; set; }

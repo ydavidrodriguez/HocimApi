@@ -44,6 +44,7 @@ namespace Holcim.Application.DataBase.Pais.Commands.Create
 
                 var Entitymapper = _mapper.Map<Domain.Entities.Pais.Pais>(req);
                 Entitymapper.IdPais = Guid.NewGuid();
+                Entitymapper.ColumnasExtras = req.ColumnasExtras;
                 Entitymapper.Estado = true;
                 Entitymapper.FechaCreacion = DateTime.Now;
                 Entitymapper.FechaActulizacion = DateTime.Now;
